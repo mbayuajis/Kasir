@@ -16,6 +16,7 @@
 	<thead>
 		<tr>
 			<th>No</th>
+			<th>Tgl. Transaksi</th>
 			<th>No. Transaksi</th>
 			<th>Barcode</th>
 			<th>Nama Barang</th>
@@ -26,6 +27,7 @@
 	<tbody>
 		<tr>
 			<td>1</td>
+			<td>2019/01/22</td>
 			<td>201902001</td>
             <td>201901001</td>
             <td>T-Shirt</td>
