@@ -1,4 +1,4 @@
-<marquee>Selamat Datang Di Sistem Manajemen Kasir Toko PRARARAMA SPORT!!!</marquee>
+
 <div class="container-fluid">
             <div class="block-header">
                 <h2><b>DASHBOARD</b></h2>
@@ -40,3 +40,26 @@
                     </div>
                 </div>               
             </div>
+ <!-- Diagram -->
+  <!-- Morris Css -->
+    <link href="plugins/morrisjs/morris.css" rel="stylesheet" />
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>DIAGRAM</h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>                                
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <div id="line_chart" class="graph">
+                                isi data grafik
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- #END# Line Chart -->
