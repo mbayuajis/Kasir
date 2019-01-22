@@ -144,7 +144,7 @@
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    &copy; 2019<a href="javascript:void(0);">-Prararama Sport</a>.
+                    &copy; 2019<a href="javascript:void(0);"> Prararama Sport</a>.
                 </div>
             </div>
             <!-- #Footer -->
