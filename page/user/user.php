@@ -9,9 +9,9 @@
                         
                         </div>
                         <script src="jquery-3.1.1.min.js"></script>
-                        
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#mybar3"><i class="material-icons">add_circle_outline</i>Tambah Data</a>
                         <div class="body">
-                            <a class="btn btn-primary" data-toggle="modal" data-target="#mybar3"><i class="material-icons">add_circle_outline</i>Tambah Data</a>
+                            
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
@@ -21,6 +21,7 @@
                                             <th>Alamat</th>
                                             <th>Username</th>
                                             <th>Password</th>
+                                            <th>Foto</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -31,6 +32,7 @@
                                             <td>Yogyakarta</td>
                                             <td>anjasmadani</td>
                                             <td>123457</td>
+                                            <td><img src="images/user.jpg" width="50" height="50"></td>
                                             <td>
                                             	<a href="" class="btn btn-success" data-toggle="modal" data-target="#mybar4"><i class="material-icons">mode_edit</i></a>
                                             	<a href="" class="btn btn-danger"><i class="material-icons">delete</i></a>
@@ -47,7 +49,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Tambah User</h4>
+        <h4 class="modal-title" align="center">Tambah User</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -55,24 +57,40 @@
       <div class="modal-body">
         <form action="#" method="POST" class="col">            
               <div class="form-group">
+                <div class="form-line">
                 <label for="id">ID Pegawai</label>
                 <input type="text" name="idpegawa" placeholder="Masukkan ID Pegawai" class="form-control" id="id">
+                </div>
             </div>
             <div class="form-group">
+                <div class="form-line">
                 <label for="nama">Nama Pegawai</label>
                 <input type="text" name="namabarang" placeholder="Masukkan Nama Pegawai" class="form-control" id="nama">
             </div>
+            </div>
             <div class="form-group">
+                <div class="form-line">
                 <label for="alamat">Alamat</label>
                 <textarea name="alamat" placeholder="Masukkan Alamat" class="form-control" id="alamat"></textarea>
             </div>
+            </div>
             <div class="form-group">
+                <div class="form-line">
                 <label for="us">Username</label>
                 <input type="text" name="us" placeholder="Masukkan Username" class="form-control" id="us">
             </div>
+            </div>
             <div class="form-group">
+                <div class="form-line">
                 <label for="ps">Password</label>
                 <input type="password" name="ps" placeholder="Masukkan Password" class="form-control" id="ps">
+            </div>
+            </div>
+            <div class="form-group">
+                <div class="form-line">
+                <label for="foto">Foto</label>
+                <input type="file" name="foto" class="form-control" id="foto">
+            </div>
             </div>
                 <input type="submit" name="Simpan" value="Simpan" class="btn btn-success">
     </form>
@@ -89,7 +107,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Edit User</h4>
+        <h4 class="modal-title" align="center">Edit User</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -97,24 +115,40 @@
       <div class="modal-body">
         <form action="#" method="POST" class="col">            
               <div class="form-group">
+                <div class="form-line">
                 <label for="id">ID Pegawai</label>
                 <input type="text" name="idpegawa" placeholder="Masukkan ID Pegawai" class="form-control" id="id">
+                </div>
             </div>
             <div class="form-group">
+                <div class="form-line">
                 <label for="nama">Nama Pegawai</label>
                 <input type="text" name="namabarang" placeholder="Masukkan Nama Pegawai" class="form-control" id="nama">
             </div>
+            </div>
             <div class="form-group">
+                <div class="form-line">
                 <label for="alamat">Alamat</label>
                 <textarea name="alamat" placeholder="Masukkan Alamat" class="form-control" id="alamat"></textarea>
             </div>
+            </div>
             <div class="form-group">
+                <div class="form-line">
                 <label for="us">Username</label>
                 <input type="text" name="us" placeholder="Masukkan Username" class="form-control" id="us">
             </div>
+            </div>
             <div class="form-group">
+                <div class="form-line">
                 <label for="ps">Password</label>
                 <input type="password" name="ps" placeholder="Masukkan Password" class="form-control" id="ps">
+            </div>
+            </div>
+            <div class="form-group">
+                <div class="form-line">
+                <label for="foto">Foto</label>
+                <input type="file" name="foto" class="form-control" id="foto">
+            </div>
             </div>
                 <input type="submit" name="Simpan" value="Simpan" class="btn btn-success">
     </form>
