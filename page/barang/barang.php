@@ -67,13 +67,13 @@
                 </div>
             </div>
 <!-- Modal Tambah Barang -->
-<div class="modal fade" id="mybar">
+<div class="modal fade" id="mybar" tabindex="-1" role="dialog">
 <div class="modal-dialog">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Tambah Barang</h4>
+        <h3 class="modal-title" align="center">Tambah Barang</h3>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -81,24 +81,34 @@
       <div class="modal-body">
         <form action="#" method="POST">            
             <div class="input-group">
+                <div class="form-line">
                 <label for="kode">Barcode</label>
                 <input type="text" name="idbarang" placeholder="Masukkan Barcode" class="form-line" id="kode">
             </div>
+            </div>
             <div class="input-group">
+                <div class="form-line">
                 <label for="nama">Nama Barang</label>
                 <input type="text" name="namabarang" placeholder="Masukkan Nama Barang" class="form-line" id="nama">
             </div>
+            </div>
             <div class="input-group">
+                <div class="form-line">
                 <label for="stock">Stock</label>
                 <input type="text" name="stock" placeholder="Masukkan Stock" class="form-line" id="stock">
             </div>
+            </div>
             <div class="input-group">
+                <div class="form-line">
                 <label for="hb">Harga Beli</label>
                 <input type="text" name="hb" placeholder="Masukkan Harga Beli" class="form-line" id="hb">
             </div>
+            </div>
             <div class="input-group">
+                <div class="form-line">
                 <label for="hj">Harga Jual</label>
                 <input type="text" name="hj" placeholder="Masukkan Harga Jual" class="form-line" id="hj">
+            </div>
             </div>
                 <input type="submit" name="Simpan" value="Simpan" class="btn btn-success">
     </form>
@@ -115,32 +125,42 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Edit Barang</h4>
+        <h4 class="modal-title" align="center">Edit Barang</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
         <form action="#" method="POST" class="col">            
-             <div class="input-group">
+               <div class="input-group">
+                <div class="form-line">
                 <label for="kode">Barcode</label>
                 <input type="text" name="idbarang" placeholder="Masukkan Barcode" class="form-line" id="kode">
             </div>
+            </div>
             <div class="input-group">
+                <div class="form-line">
                 <label for="nama">Nama Barang</label>
                 <input type="text" name="namabarang" placeholder="Masukkan Nama Barang" class="form-line" id="nama">
             </div>
+            </div>
             <div class="input-group">
+                <div class="form-line">
                 <label for="stock">Stock</label>
                 <input type="text" name="stock" placeholder="Masukkan Stock" class="form-line" id="stock">
             </div>
+            </div>
             <div class="input-group">
+                <div class="form-line">
                 <label for="hb">Harga Beli</label>
                 <input type="text" name="hb" placeholder="Masukkan Harga Beli" class="form-line" id="hb">
             </div>
+            </div>
             <div class="input-group">
+                <div class="form-line">
                 <label for="hj">Harga Jual</label>
                 <input type="text" name="hj" placeholder="Masukkan Harga Jual" class="form-line" id="hj">
+            </div>
             </div>
                 <input type="submit" name="Simpan" value="Simpan" class="btn btn-success">
     </form>
