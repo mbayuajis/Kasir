@@ -9,8 +9,9 @@
                         
                         </div>
                         <script src="jquery-3.1.1.min.js"></script>
-                        <a class="btn btn-primary" data-toggle="modal" data-target="#mybar3"><i class="material-icons">add_circle_outline</i>Tambah Data</a>
+                        
                         <div class="body">
+                            <a class="btn btn-primary" data-toggle="modal" data-target="#mybar3"><i class="material-icons">add_circle_outline</i>Tambah Data</a>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
