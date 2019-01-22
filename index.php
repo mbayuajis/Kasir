@@ -88,8 +88,8 @@
                     <img src="images/user.jpg" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Anjas Madani Tahir</div>
-                    <div class="email">Anda Login Sebagai Admin</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><b>Anjas Madani Tahir</b></div>
+                    <div class="email">Admin</div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
@@ -144,7 +144,7 @@
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    &copy; 2019<a href="javascript:void(0);">-Prararama Sport</a>.
+                    &copy; 2019<a href="javascript:void(0);"> Prararama Sport</a>.
                 </div>
             </div>
             <!-- #Footer -->

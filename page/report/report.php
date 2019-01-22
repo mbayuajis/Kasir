@@ -15,6 +15,7 @@
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                         <tr>
+                                            <th>Tgl. Transaksi</th>
                                             <th>No. Transaksi</th>
                                             <th>Barcode</th>                                          
                                             <th>Nama Barang</th>
@@ -25,6 +26,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
+                                            <td>2019/01/22</td>
                                             <td>20190122</td>
                                             <td>201901001</td>
                                             <td>T-Shirt</td>
