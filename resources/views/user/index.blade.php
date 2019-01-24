@@ -39,10 +39,16 @@
                                             <td>{{ $user->alamat }}</td>
                                             <td>{{ $user->username }}</td>
                                             <td>{{ $user->password }}</td>
-                                            <td><img src="storage/avatars/{{ $user->id_pegawai }}.png" width="50" height="50"></td>
+                                            <td>{{ Html::image('storage/avatars/'.$user->id_pegawai.'.png', $user->id_pegawai.' Avatar', array('width' => '50', 'height' => '50')) }}</td>
                                             <td>
-                                                <a href="" class="btn btn-success" data-toggle="modal" data-target="#mybar4"><i class="material-icons">mode_edit</i></a>
-                                                <a href="" class="btn btn-danger"><i class="material-icons">delete</i></a>
+                                                <a href="/user/{{ $user->id_pegawai }}/edit" class="btn btn-success"><i class="material-icons">mode_edit</i></a>
+                                                <form action="/user/{{ $user->id_pegawai }}" method="POST" style="display: inline-block;">
+                                                    {{ csrf_field() }}
+                                                    <button type="submit" name="submit" class="btn btn-danger">
+                                                        <i class="material-icons">delete</i>
+                                                    </button>
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                </form>
                                             </td>
                                         </tr>    
 
@@ -58,66 +64,63 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title" align="center">Tambah User</h4>
+        <h4 class="modal-title" align="center">{{ (!empty($edituser)) ? "Edit" : "Tambah" }} User</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="/user/store" method="POST" class="col" enctype="multipart/form-data">
+        <form action="/user{{ (!empty($edituser)) ? "/".$edituser->id_pegawai : "" }}" method="POST" class="col" enctype="multipart/form-data">
             {{ csrf_field() }}
-              <div class="form-group">
-                <div class="form-line">
-                <label for="id">ID Pegawai</label>
-                <input type="text" name="id_pegawai" placeholder="Masukkan ID Pegawai" class="form-control" id="id" value="{{ old('id_pegawai') }}">
-                @if ($errors->has('id_pegawai'))
-                    <div class="alert alert-danger">
-                        {{ $errors->first('id_pegawai') }}
-                    </div>
-                @endif
-                </div>
-            </div>
             <div class="form-group">
                 <div class="form-line">
                 <label for="nama">Nama Pegawai</label>
-                <input type="text" name="nama_pegawai" placeholder="Masukkan Nama Pegawai" class="form-control" id="nama" required value="{{ old('nama_pegawai') }}">
+                <input type="text" name="nama_pegawai" placeholder="Masukkan Nama Pegawai" class="form-control" id="nama" value="{{ (!empty($edituser)) ? $edituser->nama_pegawai : old('nama_pegawai') }}">
                 @if ($errors->has('nama_pegawai'))
-                    <div class="alert alert-danger">
-                        {{ $errors->first('nama_pegawai') }}
-                    </div>
+                    @foreach ($errors->get('nama_pegawai') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
                 @endif
             </div>
             </div>
             <div class="form-group">
                 <div class="form-line">
                 <label for="alamat">Alamat</label>
-                <textarea name="alamat" placeholder="Masukkan Alamat" class="form-control" id="alamat" required>{{ old('alamat') }}</textarea>
+                <textarea name="alamat" placeholder="Masukkan Alamat" class="form-control" id="alamat">{{ (!empty($edituser)) ? $edituser->alamat : old('alamat') }}</textarea>
                 @if ($errors->has('alamat'))
-                    <div class="alert alert-danger">
-                        {{ $errors->first('alamat') }}
-                    </div>
+                    @foreach ($errors->get('alamat') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
                 @endif
             </div>
             </div>
             <div class="form-group">
                 <div class="form-line">
                 <label for="us">Username</label>
-                <input type="text" name="username" placeholder="Masukkan Username" class="form-control" id="us" required value="{{ old('username') }}">
+                <input type="text" name="username" placeholder="Masukkan Username" class="form-control" id="us" value="{{ (!empty($edituser)) ? $edituser->username : old('username') }}">
                 @if ($errors->has('username'))
-                    <div class="alert alert-danger">
-                        {{ $errors->first('username') }}
-                    </div>
+                    @foreach ($errors->get('username') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
                 @endif
             </div>
             </div>
             <div class="form-group">
                 <div class="form-line">
                 <label for="ps">Password</label>
-                <input type="password" name="password" placeholder="Masukkan Password" class="form-control" id="ps" required>
+                <input type="password" name="password" placeholder="Masukkan Password" class="form-control" id="ps" value="{{ (!empty($edituser)) ? $edituser->password : "" }}">
                 @if ($errors->has('password'))
-                    <div class="alert alert-danger">
-                        {{ $errors->first('password') }}
-                    </div>
+                    @foreach ($errors->get('password') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
                 @endif
             </div>
             </div>
@@ -126,70 +129,15 @@
                 <label for="foto">Foto</label>
                 <input type="file" name="foto" class="form-control" id="foto" value="">
                 @if ($errors->has('foto'))
-                    <div class="alert alert-danger">
-                        {{ $errors->first('foto') }}
-                    </div>
+                    @foreach ($errors->get('foto') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
                 @endif
             </div>
             </div>
-                <input type="submit" name="Simpan" value="Simpan" class="btn btn-success">
-    </form>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- Modal Edit User -->                        
-<div class="modal fade" id="mybar4">
-<div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title" align="center">Edit User</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <form action="#" method="POST" class="col">            
-              <div class="form-group">
-                <div class="form-line">
-                <label for="id">ID Pegawai</label>
-                <input type="text" name="idpegawa" placeholder="Masukkan ID Pegawai" class="form-control" id="id">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="form-line">
-                <label for="nama">Nama Pegawai</label>
-                <input type="text" name="namabarang" placeholder="Masukkan Nama Pegawai" class="form-control" id="nama">
-            </div>
-            </div>
-            <div class="form-group">
-                <div class="form-line">
-                <label for="alamat">Alamat</label>
-                <textarea name="alamat" placeholder="Masukkan Alamat" class="form-control" id="alamat"></textarea>
-            </div>
-            </div>
-            <div class="form-group">
-                <div class="form-line">
-                <label for="us">Username</label>
-                <input type="text" name="us" placeholder="Masukkan Username" class="form-control" id="us">
-            </div>
-            </div>
-            <div class="form-group">
-                <div class="form-line">
-                <label for="ps">Password</label>
-                <input type="password" name="ps" placeholder="Masukkan Password" class="form-control" id="ps">
-            </div>
-            </div>
-            <div class="form-group">
-                <div class="form-line">
-                <label for="foto">Foto</label>
-                <input type="file" name="foto" class="form-control" id="foto">
-            </div>
-            </div>
+            {!! (!empty($edituser)) ? '<input type="hidden" name="_method" value="PUT">' : "" !!}
                 <input type="submit" name="Simpan" value="Simpan" class="btn btn-success">
     </form>
       </div>

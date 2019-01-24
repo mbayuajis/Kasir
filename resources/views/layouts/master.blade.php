@@ -173,9 +173,11 @@
 
     <section class="content">
         <div class="container-fluid">
+            @if (Session::get('message')!="")
             <div id="flash-message" class="alert alert-success" role="alert">
                 {{ Session::get('message') }}
             </div>
+            @endif
             <div class="block-header">
                @yield('content')
             </div>
@@ -218,7 +220,7 @@
     <script>
         $("#flash-message").fadeOut(2000);
     </script>
-    @if (count($errors) > 0)
+    @if (count($errors) > 0 || !empty($edituser))
         <script>
             $('#mybar3').modal('show');
         </script>

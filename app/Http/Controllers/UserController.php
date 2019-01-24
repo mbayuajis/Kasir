@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\StoreUser;
+use App\Http\Requests\UpdateUser;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -44,17 +45,18 @@ class UserController extends Controller
         $validated = $request->validated();
 
         User::create([
-            'id_pegawai' => $request->id_pegawai,
+            // 'id_pegawai' => $request->id_pegawai,
             'nama_pegawai' => $request->nama_pegawai,
             'alamat' => $request->alamat,
             'username' => $request->username,
             'password' => $request->password,
         ]);
 
-        $getimageName = $request->id_pegawai;
-        $request->file('foto')->storeAs('avatars', $request->id_pegawai.'.png', 'public');
+        $searchuser = User::where('username', $request->username)->first();
 
-        return redirect('/user')->with('message', 'Berhasil Menambahkan User');
+        $request->file('foto')->storeAs('avatars', $searchuser->id_pegawai.'.png', 'public');
+
+        return redirect('user')->with('message', 'Berhasil Menambahkan User');
     }
 
     /**
@@ -76,7 +78,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::where('id_pegawai', $id)->first();
+        $users = User::all();
+        if(!$user)
+            abort(404);
+        
+        return view('user/index', ['edituser' => $user, 'users' => $users]);
     }
 
     /**
@@ -86,9 +93,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUser $request, $id)
     {
-        //
+        $validated = $request->validated();
+
+        User::where('id_pegawai', $id)->update([
+            // 'id_pegawai' => $request->id_pegawai,
+            'nama_pegawai' => $request->nama_pegawai,
+            'alamat' => $request->alamat,
+            'username' => $request->username,
+            'password' => $request->password,
+        ]);
+
+        Storage::disk('public')->delete('avatars/'.$id.'.png');
+        $request->file('foto')->storeAs('avatars', $id.'.png', 'public');
+
+        return redirect('user')->with('message', 'Berhasil Mengubah User '.$id);
     }
 
     /**
@@ -99,6 +119,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::where('id_pegawai', $id)->delete();
+        Storage::disk('public')->delete('avatars/'.$id.'.png');
+        return redirect('user')->with('message', 'Berhasil Menghapus User '.$id);
     }
 }
