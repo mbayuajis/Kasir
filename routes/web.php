@@ -11,32 +11,33 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Route::group(['middleware' => 'auth:web'], function () {
+    Route::get('/dashboard', 'HomeController@index');
+    Route::get('/', 'HomeController@index');
+	Route::get('/logout', 'LoginController@logout');
+	Route::resource('user', 'UserController')->only([
+	    'index', 'show', 'store', 'update', 'destroy'
+	]);
+
+	Route::resource('user', 'UserController')->except([
+	    'create'
+	]);
+
+	Route::get('/barang', 'BarangController@index');
+
+	Route::get('/kasir', 'KasirController@index');
+	Route::get('/kasir/belanjaan', 'KasirController@belanjaan');
+
+	Route::get('/report', 'ReportController@index');
 });
 
-Route::get('/login', function (){
-	return view('login');
+Route::group(['middleware' => 'guest'], function () {
+	Route::get('/login', function (){
+		return view('login');
+	})->name('login');
+
+	Route::post('/login', 'LoginController@login');
 });
-
-// Route::get('/user', 'UserController@index');
-// Route::post('/user/store', 'UserController@store');
-
-
-Route::resource('user', 'UserController')->only([
-    'index', 'show', 'store', 'update', 'destroy'
-]);
-
-Route::resource('user', 'UserController')->except([
-    'create'
-]);
-
-Route::get('/barang', 'BarangController@index');
-
-Route::get('/kasir', 'KasirController@index');
-Route::get('/kasir/belanjaan', 'KasirController@belanjaan');
-
-Route::get('/report', 'ReportController@index');
 
 Route::get('storage/avatars/{filename}', function ($filename)
 {
@@ -54,3 +55,7 @@ Route::get('storage/avatars/{filename}', function ($filename)
 
     return $response;
 });
+// Route::get('/user', 'UserController@index');
+// Route::post('/user/store', 'UserController@store');
+
+

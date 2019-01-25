@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Http\Requests\StoreUser;
 use App\Http\Requests\UpdateUser;
 use Illuminate\Http\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -43,13 +44,13 @@ class UserController extends Controller
     {
 
         $validated = $request->validated();
-
+        $password = Hash::make($request->password);
         User::create([
             // 'id_pegawai' => $request->id_pegawai,
             'nama_pegawai' => $request->nama_pegawai,
             'alamat' => $request->alamat,
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => $password,
         ]);
 
         $searchuser = User::where('username', $request->username)->first();
@@ -102,11 +103,13 @@ class UserController extends Controller
             'nama_pegawai' => $request->nama_pegawai,
             'alamat' => $request->alamat,
             'username' => $request->username,
-            'password' => $request->password,
+            // 'password' => $request->password,
         ]);
 
-        Storage::disk('public')->delete('avatars/'.$id.'.png');
-        $request->file('foto')->storeAs('avatars', $id.'.png', 'public');
+        if(!empty($request->file('foto'))){  
+            Storage::disk('public')->delete('avatars/'.$id.'.png');
+            $request->file('foto')->storeAs('avatars', $id.'.png', 'public');   
+        }
 
         return redirect('user')->with('message', 'Berhasil Mengubah User '.$id);
     }

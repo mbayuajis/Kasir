@@ -25,7 +25,7 @@
                                             <th>Nama Pegawai</th>                                          
                                             <th>Alamat</th>
                                             <th>Username</th>
-                                            <th>Password</th>
+                                            {{-- <th>Password</th> --}}
                                             <th>Foto</th>
                                             <th>Action</th>
                                         </tr>
@@ -38,7 +38,7 @@
                                             <td>{{ $user->nama_pegawai }}</td>
                                             <td>{{ $user->alamat }}</td>
                                             <td>{{ $user->username }}</td>
-                                            <td>{{ $user->password }}</td>
+                                            {{-- <td>{{ $user->password }}</td> --}}
                                             <td>{{ Html::image('storage/avatars/'.$user->id_pegawai.'.png', $user->id_pegawai.' Avatar', array('width' => '50', 'height' => '50')) }}</td>
                                             <td>
                                                 <a href="/user/{{ $user->id_pegawai }}/edit" class="btn btn-success"><i class="material-icons">mode_edit</i></a>
@@ -114,7 +114,7 @@
             <div class="form-group">
                 <div class="form-line">
                 <label for="ps">Password</label>
-                <input type="password" name="password" placeholder="Masukkan Password" class="form-control" id="ps" value="{{ (!empty($edituser)) ? $edituser->password : "" }}">
+                <input type="password" name="password" placeholder="Masukkan Password" class="form-control" id="ps" value="{{ (!empty($edituser)) ? $edituser->password : "" }}" {{ (!empty($edituser)) ? "disabled" : "" }}>
                 @if ($errors->has('password'))
                     @foreach ($errors->get('password') as $message)
                         <div class="alert alert-danger">
