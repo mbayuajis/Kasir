@@ -1,0 +1,13 @@
+<?php
+
+namespace App;
+
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class Users extends Authenticatable
+{
+	protected $primaryKey = 'id_pegawai';
+    protected $table = "users";
+}
