@@ -13,12 +13,17 @@ class LoginController extends Controller
         if (Auth::guard('web')->attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
             // Authentication passed...
         	// dd(Auth::user());
+            $currentUser = Auth::user();
+            session(['user' => $currentUser]);
             return redirect()->intended('dashboard');
+        }else{
+            return redirect('login')->with('message', 'Password atau Username Salah!');
         }
     }
 
     function logout()
     {
+        session()->flush();
     	Auth::logout();
     	return redirect('/login');
     }

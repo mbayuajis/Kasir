@@ -39,22 +39,7 @@ Route::group(['middleware' => 'guest'], function () {
 	Route::post('/login', 'LoginController@login');
 });
 
-Route::get('storage/avatars/{filename}', function ($filename)
-{
-    $path = storage_path('app/public/avatars/' . $filename);
 
-    if (!File::exists($path)) {
-        abort(404);
-    }
-
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-
-    return $response;
-});
 // Route::get('/user', 'UserController@index');
 // Route::post('/user/store', 'UserController@store');
 

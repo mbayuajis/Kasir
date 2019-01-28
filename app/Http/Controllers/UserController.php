@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\Rule;
+use Validator;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\StoreUser;
@@ -55,7 +57,7 @@ class UserController extends Controller
 
         $searchuser = User::where('username', $request->username)->first();
 
-        $request->file('foto')->storeAs('avatars', $searchuser->id_pegawai.'.png', 'public');
+        $request->file('foto')->storeAs('avatars', $searchuser->nama_pegawai.'.png', 'public');
 
         return redirect('user')->with('message', 'Berhasil Menambahkan User');
     }
@@ -83,8 +85,8 @@ class UserController extends Controller
         $users = User::all();
         if(!$user)
             abort(404);
-        
-        return view('user/index', ['edituser' => $user, 'users' => $users]);
+        return response()->json($user);
+        // return view('user/index', ['edituser' => $user, 'users' => $users]);
     }
 
     /**
@@ -94,23 +96,48 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUser $request, $id)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validated();
+        // $validated = $request->validated();
+        $user = User::where('id_pegawai', $id)->first();
+        $rules = [
+            'nama_pegawaiE' => 'required',
+            'alamatE' => 'required',
+            'usernameE' => [
+                'min:5',
+                'required',
+                Rule::unique('users', 'username')->ignore($user->id_pegawai, 'id_pegawai'),
+            ],
+        ];
+        $message = [
+            'required' => ':attribute harus diisi!',
+            'min'  => ':attribute diisi minimal :min karakter!',
+        ];
+        Validator::make($request->all(), $rules, $message)->validate();
 
         User::where('id_pegawai', $id)->update([
             // 'id_pegawai' => $request->id_pegawai,
-            'nama_pegawai' => $request->nama_pegawai,
-            'alamat' => $request->alamat,
-            'username' => $request->username,
-            // 'password' => $request->password,
+            'nama_pegawai' => $request->nama_pegawaiE,
+            'alamat' => $request->alamatE,
+            'username' => $request->usernameE,
+            // 'password' => $request->passwordE,
         ]);
 
-        if(!empty($request->file('foto'))){  
-            Storage::disk('public')->delete('avatars/'.$id.'.png');
-            $request->file('foto')->storeAs('avatars', $id.'.png', 'public');   
+        if(!empty($request->file('fotoE'))){  
+            Storage::disk('public')->delete('avatars/'.$user->nama_pegawai.'.png');
+            $request->file('fotoE')->storeAs('avatars', $request->nama_pegawaiE.'.png', 'public');   
+        }else{
+            Storage::disk('public')->move('avatars/'.$user->nama_pegawai.'.png', 'avatars/'.$request->nama_pegawaiE.'.png');
         }
 
+        // session('user')->username->pull('nama_pegawai', $request->nama_pegawai);
+        // $nama_pegawai = session('user')->nama_pegawai;
+        // $userE = session()->pull('user', [])->toArray(); // Second argument is a default value
+        // if(($key = array_search($nama_pegawai, $userE)) !== false) {
+        //     $userE[$key]=$request->nama_pegawaiE;
+        // }
+        // session()->put('user', $userE);
+        // dd(session('user'));
         return redirect('user')->with('message', 'Berhasil Mengubah User '.$id);
     }
 

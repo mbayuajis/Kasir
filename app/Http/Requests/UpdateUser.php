@@ -40,7 +40,7 @@ class UpdateUser extends FormRequest
             // 'id_pegawai' => 'required|min:10',
             'nama_pegawai' => 'required',
             'alamat' => 'required',
-            'username' => 'required|min:5',
+            'username' => 'min:5|required|unique:users,username',
             'password' => 'required|min:8',
         ];
     }

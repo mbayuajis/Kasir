@@ -144,6 +144,16 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'nama_pegawai' => 'Nama Pegawai',
+        'alamat' => 'Alamat',
+        'username' => 'Username',
+        'password' => 'Password',
+        'foto' => 'Foto',
+        'usernameE' => 'Username',
+        'nama_pegawaiE' => 'Nama Pegawai',
+        'alamatE' => 'Alamat',
+        'passwordE' => 'Password',
+    ],
 
 ];
