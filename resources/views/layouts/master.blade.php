@@ -93,6 +93,7 @@
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
+                            <li><a data-toggle="modal" data-target="#mybar4"><i class="material-icons">lock</i>Change Password</a></li>
                             <li><a href="/logout"><i class="material-icons">input</i>Sign Out</a></li>
                         </ul>
                     </div>
@@ -183,6 +184,49 @@
             </div>
         </div>
     </section>
+
+    
+<!-- Modal Ganti Password -->
+<div class="modal fade" id="mybar4">
+<div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title" align="center">Ganti Password</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form action="">
+            <div class="form-group">
+                <div class="form-line">
+                <label for="pass_lama">Password Lama</label>
+                <input type="password" name="pass_lama" placeholder="Masukkan Password Lama" class="form-control" id="pass_lama">            
+            </div>
+            </div>      
+
+            <div class="form-group">
+                <div class="form-line">
+                <label for="pass_baru">Password Baru</label>
+                <input type="password" name="pass_baru" placeholder="Masukkan Password Baru" class="form-control" id="pass_baru" >
+            </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-line">
+                <label for="pass_baru1">Ulangi Password Baru</label>
+                <input type="password" name="pass_baru1" placeholder="Ulangi Masukkan Password Baru" class="form-control" id="pass_baru1" >
+            </div>
+            </div>            
+                <input type="submit" name="Simpan" value="Ganti" class="btn btn-success">
+    </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
     <!-- Jquery Core Js -->
 

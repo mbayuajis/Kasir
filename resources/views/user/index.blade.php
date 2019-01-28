@@ -23,6 +23,8 @@
                                             <th>ID Pegawai</th>
                                             <th>Nama Pegawai</th>                                          
                                             <th>Alamat</th>
+                                            <th>Jabatan</th>
+                                            <th>No. Telepon</th>
                                             <th>Username</th>
                                             {{-- <th>Password</th> --}}
                                             <th>Foto</th>
@@ -36,6 +38,8 @@
                                             <td>{{ $user->id_pegawai }}</td>
                                             <td>{{ $user->nama_pegawai }}</td>
                                             <td>{{ $user->alamat }}</td>
+                                            <td>Jabatan</td>
+                                            <td>No. telp</td>
                                             <td>{{ $user->username }}</td>
                                             {{-- <td>{{ $user->password }}</td> --}}
                                             <td>{{ Html::image('storage/avatars/'.$user->nama_pegawai.'.png', $user->nama_pegawai.' Avatar', array('width' => '50', 'height' => '50')) }}</td>
