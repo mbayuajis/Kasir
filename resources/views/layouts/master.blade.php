@@ -93,7 +93,7 @@
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a data-toggle="modal" data-target="#mybar4"><i class="material-icons">lock</i>Change Password</a></li>
+                            <li><a data-toggle="modal" data-target="#changepwd"><i class="material-icons">lock</i>Change Password</a></li>
                             <li><a href="/logout"><i class="material-icons">input</i>Sign Out</a></li>
                         </ul>
                     </div>
@@ -187,7 +187,7 @@
 
     
 <!-- Modal Ganti Password -->
-<div class="modal fade" id="mybar4">
+<div class="modal fade" id="changepwd">
 <div class="modal-dialog">
     <div class="modal-content">
 
