@@ -38,6 +38,11 @@
             <a href="javascript:void(0);"><b>Prararama Sport</b></a>
             <small>Jl. Andonohu No. 32B Kota Kendari Sulawesi Tenggara</small>
         </div>
+        @if (Session::get('message')!="")
+            <div class="alert alert-danger" role="alert">
+                {{ Session::get('message') }}
+            </div>
+        @endif
         <div class="card">
             <div class="body">
                 <form id="sign_in" method="POST" action="/login">

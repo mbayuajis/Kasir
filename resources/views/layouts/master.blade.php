@@ -85,11 +85,11 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="assets/images/user.jpg" width="48" height="48" alt="User" />
+                    {{ Html::image('storage/avatars/'.$user.'.png', $user.' Avatar', array('width' => '50', 'height' => '50')) }}
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><b>Anjas Madani Tahir</b></div>
-                    <div class="email">Admin</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><b>{{ $user }}</b></div>
+                    <div class="email">{{ $jabatan }}</div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
@@ -220,11 +220,36 @@
     <script>
         $("#flash-message").fadeOut(2000);
     </script>
-    @if (count($errors) > 0 || !empty($edituser))
+    @if ($errors->has('username') || $errors->has('password') || $errors->has('alamat') || $errors->has('nama_pegawai'))
         <script>
             $('#mybar3').modal('show');
         </script>
     @endif
+    @if ($errors->has('usernameE') || $errors->has('passwordE') || $errors->has('alamatE') || $errors->has('nama_pegawaiE'))
+        <script>
+            $('#mybar4').modal('show');
+        </script>
+    @endif
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".editUser").click(function(){
+                var $linkE = $(this).closest("td");
+                var link = $linkE.find("#linkU").attr('linkUser');
+                $.ajax({
+                    url : link,
+                    success: function(data){
+                        $('#mybar4').modal('show');
+                        $('#formEdit').attr('action', '/user/' + data.id_pegawai);
+                        $("#namaEdit").val(data.nama_pegawai);
+                        $("#alamatEdit").val(data.alamat);
+                        $("#usernameEdit").val(data.username);
+                        $("#passwordEdit").val(data.password);
+                    }
+                });
+            });
+                
+        });
+    </script>
 </body>
 
 </html>

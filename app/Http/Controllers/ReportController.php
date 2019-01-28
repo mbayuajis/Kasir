@@ -9,7 +9,7 @@ class ReportController extends Controller
 {
     public function index()
     {
-    	// dd(Auth::user());
+    	dd(session('user'));
     	return view('report/index');
     }
 }

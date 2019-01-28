@@ -24,7 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // dd(Auth::guard('web')->user()->password);
         return view('index');
     }
 }
