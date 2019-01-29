@@ -23,9 +23,22 @@ Route::group(['middleware' => 'auth:web'], function () {
 	    'create'
 	]);
 
-	Route::get('/barang', 'BarangController@index');
+	Route::resource('kasir', 'KasirController')->only([
+	    'index', 'show', 'store', 'update', 'destroy'
+	]);
 
-	Route::get('/kasir', 'KasirController@index');
+	Route::resource('kasir', 'KasirController')->except([
+	    'create'
+	]);
+
+	Route::resource('barang', 'BarangController')->only([
+	    'index', 'show', 'store', 'update', 'destroy'
+	]);
+
+	Route::resource('barang', 'BarangController')->except([
+	    'create'
+	]);
+	
 	Route::get('/kasir/belanjaan', 'KasirController@belanjaan');
 
 	Route::get('/report', 'ReportController@index');
@@ -39,6 +52,23 @@ Route::group(['middleware' => 'guest'], function () {
 	Route::post('/login', 'LoginController@login');
 });
 
+
+Route::get('storage/avatars/{filename}', function ($filename)
+{
+    $path = storage_path('app/public/avatars/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+});
 
 // Route::get('/user', 'UserController@index');
 // Route::post('/user/store', 'UserController@store');

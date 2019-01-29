@@ -93,7 +93,7 @@
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a data-toggle="modal" data-target="#mybar4"><i class="material-icons">lock</i>Change Password</a></li>
+                            <li><a data-toggle="modal" data-target="#changepwd"><i class="material-icons">lock</i>Change Password</a></li>
                             <li><a href="/logout"><i class="material-icons">input</i>Sign Out</a></li>
                         </ul>
                     </div>
@@ -187,7 +187,7 @@
 
     
 <!-- Modal Ganti Password -->
-<div class="modal fade" id="mybar4">
+<div class="modal fade" id="changepwd">
 <div class="modal-dialog">
     <div class="modal-content">
 
@@ -277,8 +277,8 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $(".editUser").click(function(){
-                var $linkE = $(this).closest("td");
-                var link = $linkE.find("#linkU").attr('linkUser');
+                var $linkEU = $(this).closest("td");
+                var link = $linkEU.find("#linkU").attr('linkUser');
                 $.ajax({
                     url : link,
                     success: function(data){
@@ -291,7 +291,22 @@
                     }
                 });
             });
-                
+               
+            $(".editBarang").click(function(){
+                var $linkEB = $(this).closest("td");
+                var link = $linkEB.find("#linkB").attr('linkBarang');
+                $.ajax({
+                    url : link,
+                    success: function(data){
+                        $('#mybar2').modal('show');
+                        $('#formEdit').attr('action', '/barang/' + data.id_barang);
+                        $("#nama_barangE").val(data.nama_barang);
+                        $("#stockN").text(data.stock + ' + ');
+                        $("#harga_beliE").val(data.harga_beli);
+                        $("#harga_jualE").val(data.harga_jual);
+                    }
+                });
+            }); 
         });
     </script>
 </body>

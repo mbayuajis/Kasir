@@ -11,7 +11,6 @@
                             </h1>
                         
                         </div>
-                        <script src="jquery-3.1.1.min.js"></script>
                         
                         <div class="body">
                             <div class="form-group">
@@ -22,7 +21,7 @@
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                         <tr>
-                                            <th>Barcode</th>
+                                            <th>ID Barang</th>
                                             <th>Nama Barang</th>
                                             <th>Stock Barang</th>
                                             <th>Harga Beli</th>
@@ -31,39 +30,25 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($barangs as $barang)
                                         <tr>
-                                            <td>201901001</td>
-                                            <td>T-Shirt</td>
-                                            <td>50</td>
-                                            <td>120,000</td>
-                                            <td>156,000</td>
+                                            <td>{{ $barang->id_barang }}</td>
+                                            <td>{{ $barang->nama_barang }}</td>
+                                            <td>{{ $barang->stock }}</td>
+                                            <td>{{ $barang->harga_beli }}</td>
+                                            <td>{{ $barang->harga_jual }}</td>
                                             <td>
-                                            	<a href="" class="btn btn-success" data-toggle="modal" data-target="#mybar2"><i class="material-icons">mode_edit</i></a>
-                                            	<a href="" class="btn btn-danger"><i class="material-icons">delete</i></a>
+                                            	<a linkBarang="/barang/{{ $barang->id_barang }}/edit" id="linkB" class="btn btn-success editBarang"><i class="material-icons">mode_edit</i></a>
+                                                <form action="/barang/{{ $barang->id_barang }}" method="POST" style="display: inline-block;">
+                                                    {{ csrf_field() }}
+                                                    <button type="submit" name="submit" class="btn btn-danger">
+                                                        <i class="material-icons">delete</i>
+                                                    </button>
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                </form>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>201901002</td>
-                                            <td>Nike Air Jordan</td>
-                                            <td>3</td>
-                                            <td>5,000,000</td>
-                                            <td>7,000,000</td>
-                                            <td>
-                                            	<a href="" class="btn btn-success" data-toggle="modal" data-target="#mybar2"><i class="material-icons">mode_edit</i></a>
-                                            	<a href="" class="btn btn-danger"><i class="material-icons">delete</i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>201901003</td>
-                                            <td>Yezzy</td>
-                                            <td>5</td>
-                                            <td>1,000,000</td>
-                                            <td>1,500,000</td>
-                                            <td>
-                                            	<a href="" class="btn btn-success" data-toggle="modal" data-target="#mybar2"><i class="material-icons">mode_edit</i></a>
-                                            	<a href="" class="btn btn-danger"><i class="material-icons">delete</i></a>
-                                            </td>
-                                        </tr>                                       
+                                        </tr>                         
+                                        @endforeach            
                                     </tbody>
                                 </table>
 
@@ -85,35 +70,36 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="#" method="POST">            
-            <div class="input-group">
+        <form action="/barang" method="POST">
+            {{ csrf_field() }}            
+            {{-- <div class="input-group">
                 <div class="form-line">
                 <label for="kode">Barcode</label>
                 <input type="text" name="idbarang" placeholder="Masukkan Barcode" class="form-line" id="kode">
-            </div>
-            </div>
+            </div> --}}
+            {{-- </div> --}}
             <div class="input-group">
                 <div class="form-line">
                 <label for="nama">Nama Barang</label>
-                <input type="text" name="namabarang" placeholder="Masukkan Nama Barang" class="form-line" id="nama">
+                <input type="text" name="nama_barang" placeholder="Masukkan Nama Barang" class="form-line form-control" id="nama">
             </div>
             </div>
             <div class="input-group">
                 <div class="form-line">
                 <label for="stock">Stock</label>
-                <input type="text" name="stock" placeholder="Masukkan Stock" class="form-line" id="stock">
+                <input type="number" name="stock" placeholder="Masukkan Stock" class="form-line form-control" id="stock">
             </div>
             </div>
             <div class="input-group">
                 <div class="form-line">
                 <label for="hb">Harga Beli</label>
-                <input type="text" name="hb" placeholder="Masukkan Harga Beli" class="form-line" id="hb">
+                <input type="number" name="harga_beli" placeholder="Masukkan Harga Beli" class="form-line form-control" id="hb">
             </div>
             </div>
             <div class="input-group">
                 <div class="form-line">
                 <label for="hj">Harga Jual</label>
-                <input type="text" name="hj" placeholder="Masukkan Harga Jual" class="form-line" id="hj">
+                <input type="number" name="harga_jual" placeholder="Masukkan Harga Jual" class="form-line form-control" id="hj">
             </div>
             </div>
                 <input type="submit" name="Simpan" value="Simpan" class="btn btn-success">
@@ -137,37 +123,40 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="#" method="POST" class="col">            
-               <div class="input-group">
+        <form action="" id="formEdit" method="POST" class="col">            
+            {{ csrf_field() }}
+               {{-- <div class="input-group">
                 <div class="form-line">
                 <label for="kode">Barcode</label>
                 <input type="text" name="idbarang" placeholder="Masukkan Barcode" class="form-line" id="kode">
             </div>
-            </div>
+            </div> --}}
             <div class="input-group">
                 <div class="form-line">
                 <label for="nama">Nama Barang</label>
-                <input type="text" name="namabarang" placeholder="Masukkan Nama Barang" class="form-line" id="nama">
+                <input type="text" name="nama_barangE" placeholder="Masukkan Nama Barang" class="form-line form-control" id="nama_barangE">
             </div>
             </div>
             <div class="input-group">
                 <div class="form-line">
                 <label for="stock">Stock</label>
-                <input type="text" name="stock" placeholder="Masukkan Stock" class="form-line" id="stock">
+                    <span class="input-group-addon" id="stockN">Jumlah</span>
+                <input type="number" name="stockE" placeholder="Masukkan Stock" class="form-control" id="stockE">
             </div>
             </div>
             <div class="input-group">
                 <div class="form-line">
                 <label for="hb">Harga Beli</label>
-                <input type="text" name="hb" placeholder="Masukkan Harga Beli" class="form-line" id="hb">
+                <input type="number" name="harga_beliE" placeholder="Masukkan Harga Beli" class="form-line form-control" id="harga_beliE">
             </div>
             </div>
             <div class="input-group">
                 <div class="form-line">
                 <label for="hj">Harga Jual</label>
-                <input type="text" name="hj" placeholder="Masukkan Harga Jual" class="form-line" id="hj">
+                <input type="number" name="harga_jualE" placeholder="Masukkan Harga Jual" class="form-line form-control" id="harga_jualE">
             </div>
             </div>
+            <input type="hidden" name="_method" value="PUT">
                 <input type="submit" name="Simpan" value="Simpan" class="btn btn-success">
     </form>
       </div>
