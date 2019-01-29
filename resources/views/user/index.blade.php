@@ -38,8 +38,8 @@
                                             <td>{{ $user->id_pegawai }}</td>
                                             <td>{{ $user->nama_pegawai }}</td>
                                             <td>{{ $user->alamat }}</td>
-                                            <td>Jabatan</td>
-                                            <td>No. telp</td>
+                                            <td>{{ $user->jabatan }}</td>
+                                            <td>{{ $user->no_telp }}</td>
                                             <td>{{ $user->username }}</td>
                                             {{-- <td>{{ $user->password }}</td> --}}
                                             <td>{{ Html::image('storage/avatars/'.$user->nama_pegawai.'.png', $user->nama_pegawai.' Avatar', array('width' => '50', 'height' => '50')) }}</td>
@@ -67,18 +67,18 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title" align="center">{{ (!empty($edituser)) ? "Edit" : "Tambah" }} User</h4>
+        <h4 class="modal-title" align="center">Tambah User</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="/user{{ (!empty($edituser)) ? "/".$edituser->id_pegawai : "" }}" method="POST" class="col" enctype="multipart/form-data">
+        <form action="/user" method="POST" class="col" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="form-group">
                 <div class="form-line">
                 <label for="nama">Nama Pegawai</label>
-                <input type="text" name="nama_pegawai" placeholder="Masukkan Nama Pegawai" class="form-control" id="nama" value="{{ (!empty($edituser)) ? $edituser->nama_pegawai : old('nama_pegawai') }}">
+                <input type="text" name="nama_pegawai" placeholder="Masukkan Nama Pegawai" class="form-control" id="nama" value="{{ old('nama_pegawai') }}">
                 @if ($errors->has('nama_pegawai'))
                     @foreach ($errors->get('nama_pegawai') as $message)
                         <div class="alert alert-danger">
@@ -91,7 +91,7 @@
             <div class="form-group">
                 <div class="form-line">
                 <label for="alamat">Alamat</label>
-                <textarea name="alamat" placeholder="Masukkan Alamat" class="form-control" id="alamat">{{ (!empty($edituser)) ? $edituser->alamat : old('alamat') }}</textarea>
+                <textarea name="alamat" placeholder="Masukkan Alamat" class="form-control" id="alamat">{{ old('alamat') }}</textarea>
                 @if ($errors->has('alamat'))
                     @foreach ($errors->get('alamat') as $message)
                         <div class="alert alert-danger">
@@ -103,8 +103,37 @@
             </div>
             <div class="form-group">
                 <div class="form-line">
+                <label for="no_telp">No. Telp</label>
+                <input type="text" name="no_telp" placeholder="Masukkan No. Telp" class="form-control" id="no_telp" value="{{ old('no_telp') }}">
+                @if ($errors->has('no_telp'))
+                    @foreach ($errors->get('no_telp') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            </div>
+            <div class="form-group">
+                <div class="form-line">
+                <label for="jabatan">Jabatan</label>
+                <select name="jabatan" id="jabatan">
+                    <option value="Kasir" selected>Kasir</option>
+                    <option value="Owner">Owner</option>
+                </select>
+                @if ($errors->has('jabatan'))
+                    @foreach ($errors->get('jabatan') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            </div>
+            <div class="form-group">
+                <div class="form-line">
                 <label for="us">Username</label>
-                <input type="text" name="username" placeholder="Masukkan Username" class="form-control" id="username" value="{{ (!empty($edituser)) ? $edituser->username : old('username') }}">
+                <input type="text" name="username" placeholder="Masukkan Username" class="form-control" id="username" value="{{ old('username') }}">
                 @if ($errors->has('username'))
                     @foreach ($errors->get('username') as $message)
                         <div class="alert alert-danger">
@@ -117,7 +146,7 @@
             <div class="form-group">
                 <div class="form-line">
                 <label for="ps">Password</label>
-                <input type="password" name="password" placeholder="Masukkan Password" class="form-control" id="password" value="{{ (!empty($edituser)) ? $edituser->password : "" }}">
+                <input type="password" name="password" placeholder="Masukkan Password" class="form-control" id="password">
                 @if ($errors->has('password'))
                     @foreach ($errors->get('password') as $message)
                         <div class="alert alert-danger">
@@ -165,7 +194,7 @@
             {{ csrf_field() }}
             <div class="form-group">
                 <div class="form-line">
-                <label for="nama">Nama Pegawai</label>
+                <label for="namaEdit">Nama Pegawai</label>
                 <input type="text" name="nama_pegawaiE" placeholder="Masukkan Nama Pegawai" class="form-control" id="namaEdit" value="{{ old('nama_pegawaiE') }}">
                 @if ($errors->has('nama_pegawaiE'))
                     @foreach ($errors->get('nama_pegawaiE') as $message)
@@ -178,10 +207,39 @@
             </div>
             <div class="form-group">
                 <div class="form-line">
-                <label for="alamat">Alamat</label>
+                <label for="alamatEdit">Alamat</label>
                 <textarea name="alamatE" placeholder="Masukkan Alamat" class="form-control" id="alamatEdit">{{ old('alamatE') }}</textarea>
                 @if ($errors->has('alamatE'))
                     @foreach ($errors->get('alamatE') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            </div>
+            <div class="form-group">
+                <div class="form-line">
+                <label for="no_telpEdit">No. Telp</label>
+                <input type="text" name="no_telpE" placeholder="Masukkan No. Telp" class="form-control" id="no_telpEdit" value="{{ old('no_telpE') }}">
+                @if ($errors->has('no_telpE'))
+                    @foreach ($errors->get('no_telpE') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            </div>
+            <div class="form-group">
+                <div class="form-line">
+                <label for="jabatanEdit">Jabatan</label>
+                <select class="form-control" name="jabatanE" id="jabatanEdit">
+                    <option value="Kasir">Kasir</option>
+                    <option value="Owner">Owner</option>
+                </select>
+                @if ($errors->has('jabatanE'))
+                    @foreach ($errors->get('jabatanE') as $message)
                         <div class="alert alert-danger">
                             {{ $message }}
                         </div>

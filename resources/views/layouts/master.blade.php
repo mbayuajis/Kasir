@@ -284,6 +284,8 @@
                     success: function(data){
                         $('#mybar4').modal('show');
                         $('#formEdit').attr('action', '/user/' + data.id_pegawai);
+                        $('#jabatanEdit option[value=' + data.jabatan + ']').attr('selected',true);
+                        $("#no_telpEdit").val(data.no_telp);
                         $("#namaEdit").val(data.nama_pegawai);
                         $("#alamatEdit").val(data.alamat);
                         $("#usernameEdit").val(data.username);

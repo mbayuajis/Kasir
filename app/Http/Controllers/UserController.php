@@ -50,6 +50,8 @@ class UserController extends Controller
             // 'id_pegawai' => $request->id_pegawai,
             'nama_pegawai' => $request->nama_pegawai,
             'alamat' => $request->alamat,
+            'no_telp' => $request->no_telp,
+            'jabatan' => $request->jabatan,
             'username' => $request->username,
             'password' => $password,
         ]);

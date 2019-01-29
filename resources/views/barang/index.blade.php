@@ -81,26 +81,55 @@
             <div class="input-group">
                 <div class="form-line">
                 <label for="nama">Nama Barang</label>
-                <input type="text" name="nama_barang" placeholder="Masukkan Nama Barang" class="form-line form-control" id="nama">
+                <input type="text" name="nama_barang" placeholder="Masukkan Nama Barang" class="form-line form-control" id="nama" value="{{ old('nama_barang') }}">
+                @if ($errors->has('nama_barang'))
+                    @foreach ($errors->get('nama_barang') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif
             </div>
             </div>
             <div class="input-group">
                 <div class="form-line">
                 <label for="stock">Stock</label>
-                <input type="number" name="stock" placeholder="Masukkan Stock" class="form-line form-control" id="stock">
+                <input type="number" name="stock" placeholder="Masukkan Stock" class="form-line form-control" id="stock" value="{{ old('stock') }}">
+                @if ($errors->has('stock'))
+                    @foreach ($errors->get('stock') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif
             </div>
             </div>
             <div class="input-group">
                 <div class="form-line">
                 <label for="hb">Harga Beli</label>
-                <input type="number" name="harga_beli" placeholder="Masukkan Harga Beli" class="form-line form-control" id="hb">
+                <input type="number" name="harga_beli" placeholder="Masukkan Harga Beli" class="form-line form-control" id="hb" value="{{ old('harga_beli') }}">
+                @if ($errors->has('harga_beli'))
+                    @foreach ($errors->get('harga_beli') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif
             </div>
             </div>
             <div class="input-group">
                 <div class="form-line">
                 <label for="hj">Harga Jual</label>
-                <input type="number" name="harga_jual" placeholder="Masukkan Harga Jual" class="form-line form-control" id="hj">
+                <input type="number" name="harga_jual" placeholder="Masukkan Harga Jual" class="form-line form-control" id="hj" value="{{ old('harga_jual') }}">
+                @if ($errors->has('harga_jual'))
+                    @foreach ($errors->get('harga_jual') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif 
             </div>
+            
             </div>
                 <input type="submit" name="Simpan" value="Simpan" class="btn btn-success">
     </form>
