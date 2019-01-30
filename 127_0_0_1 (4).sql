@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2019 at 08:44 AM
+-- Generation Time: Jan 31, 2019 at 12:03 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -45,7 +45,75 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id_barang`, `nama_barang`, `stock`, `harga_beli`, `harga_jual`, `created_at`, `updated_at`) VALUES
-(2, 'kaki', 13000, 123, 12345, '2019-01-28 12:10:13', '2019-01-28 12:51:04');
+(3, 'bajuku', 11, 10000, 1000000, '2019-01-30 09:42:07', '2019-01-30 09:42:29'),
+(4, 'bajuku', 20, 10000, 1000000, '2019-01-30 11:13:18', '2019-01-30 11:13:18');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `barang_transaksi`
+--
+
+CREATE TABLE `barang_transaksi` (
+  `id` int(11) NOT NULL,
+  `no_transaksi` varchar(255) NOT NULL,
+  `kode_barang` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `barang_transaksi`
+--
+
+INSERT INTO `barang_transaksi` (`id`, `no_transaksi`, `kode_barang`) VALUES
+(1, '2019-01-30-000000015', 3),
+(2, '2019-01-30-000000015', 3),
+(3, '2019-01-30-000000015', 4),
+(4, '2019-01-30-000000015', 4),
+(5, '2019-01-30-000000015', 3),
+(6, '2019-01-30-000000015', 3),
+(7, '2019-01-30-000000015', 4),
+(8, '2019-01-30-000000015', 3),
+(9, '2019-01-30-000000015', 3),
+(10, '2019-01-30-000000015', 4),
+(11, '2019-01-30-000000015', 4),
+(12, '2019-01-30-000000015', 4),
+(13, '2019-01-30-000000015', 4),
+(14, '2019-01-30-000000015', 4),
+(15, '2019-01-30-000000015', 4),
+(16, '2019-01-30-000000015', 4),
+(17, '2019-01-30-000000015', 4),
+(18, '2019-01-30-000000015', 3),
+(19, '2019-01-30-000000015', 3),
+(20, '2019-01-30-000000015', 3),
+(21, '2019-01-30-000000015', 3),
+(22, '2019-01-30-000000015', 3),
+(23, '2019-01-30-000000015', 4),
+(24, '2019-01-30-000000015', 3),
+(25, '2019-01-30-000000015', 3),
+(26, '2019-01-30-000000015', 3),
+(27, '2019-01-30-000000015', 3),
+(28, '2019-01-30-000000015', 3),
+(29, '2019-01-30-000000015', 3),
+(30, '2019-01-30-000000015', 3),
+(31, '2019-01-30-000000015', 3),
+(32, '2019-01-30-000000015', 3),
+(33, '2019-01-30-000000015', 4),
+(34, '2019-01-30-000000015', 3),
+(35, '2019-01-30-000000015', 3),
+(36, '2019-01-30-000000015', 3),
+(37, '2019-01-30-000000015', 4),
+(38, '2019-01-31-000000017', 3),
+(39, '2019-01-31-000000017', 4),
+(40, '2019-01-31-000000017', 3),
+(41, '2019-01-31-000000018', 3),
+(55, '2019-01-31-000000019', 4),
+(56, '2019-01-31-000000019', 3),
+(57, '2019-01-31-000000019', 3),
+(58, '2019-01-31-000000019', 4),
+(59, '2019-01-31-000000019', 3),
+(60, '2019-01-31-000000019', 3),
+(61, '2019-01-31-000000019', 4),
+(62, '2019-01-31-000000019', 4);
 
 -- --------------------------------------------------------
 
@@ -56,6 +124,7 @@ INSERT INTO `barang` (`id_barang`, `nama_barang`, `stock`, `harga_beli`, `harga_
 CREATE TABLE `transaksi` (
   `no_transaksi` varchar(255) NOT NULL,
   `id_pegawai` varchar(100) NOT NULL,
+  `status` varchar(30) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -64,16 +133,12 @@ CREATE TABLE `transaksi` (
 -- Dumping data for table `transaksi`
 --
 
-INSERT INTO `transaksi` (`no_transaksi`, `id_pegawai`, `created_at`, `updated_at`) VALUES
-('2019-01-28/000000002', 'PRARARAMA000000009', '2019-01-28 01:21:17', '2019-01-28 01:21:17'),
-('2019-01-28/000000003', 'PRARARAMA000000009', '2019-01-28 01:23:35', '2019-01-28 01:23:35'),
-('2019-01-28/000000004', 'PRARARAMA000000009', '2019-01-28 01:24:40', '2019-01-28 01:24:40'),
-('2019-01-28/000000005', 'PRARARAMA000000009', '2019-01-28 01:25:38', '2019-01-28 01:25:38'),
-('2019-01-28/000000006', 'PRARARAMA000000009', '2019-01-28 01:26:18', '2019-01-28 01:26:18'),
-('2019-01-28/000000007', 'PRARARAMA000000009', '2019-01-28 01:30:13', '2019-01-28 01:30:13'),
-('2019-01-28/000000008', 'PRARARAMA000000009', '2019-01-28 01:30:33', '2019-01-28 01:30:33'),
-('2019-01-28/000000009', 'PRARARAMA000000011', '2019-01-28 01:31:23', '2019-01-28 01:31:23'),
-('2019-01-28/000000010', 'PRARARAMA000000009', '2019-01-28 01:32:25', '2019-01-28 01:32:25');
+INSERT INTO `transaksi` (`no_transaksi`, `id_pegawai`, `status`, `created_at`, `updated_at`) VALUES
+('2019-01-30-000000015', 'PRARARAMA000000009', 'Memasukkan Belanjaan', '2019-01-30 09:52:21', '2019-01-30 09:52:21'),
+('2019-01-30-000000016', 'PRARARAMA000000009', 'Memasukkan Belanjaan', '2019-01-30 09:56:19', '2019-01-30 09:56:19'),
+('2019-01-31-000000017', 'PRARARAMA000000009', 'Memasukkan Belanjaan', '2019-01-30 14:31:42', '2019-01-30 14:31:42'),
+('2019-01-31-000000018', 'PRARARAMA000000016', 'Memasukkan Belanjaan', '2019-01-30 14:42:15', '2019-01-30 14:42:15'),
+('2019-01-31-000000019', 'PRARARAMA000000009', 'Memasukkan Belanjaan', '2019-01-30 14:46:27', '2019-01-30 14:46:27');
 
 --
 -- Triggers `transaksi`
@@ -81,7 +146,7 @@ INSERT INTO `transaksi` (`no_transaksi`, `id_pegawai`, `created_at`, `updated_at
 DELIMITER $$
 CREATE TRIGGER `AUTONOTRANSAKSI` BEFORE INSERT ON `transaksi` FOR EACH ROW BEGIN
   INSERT INTO transaksi_seq VALUES (NULL);
-  SET NEW.no_transaksi = CONCAT_WS('/' ,CURDATE(), LPAD(LAST_INSERT_ID(), 9, '0'));
+  SET NEW.no_transaksi = CONCAT_WS('-' ,CURDATE(), LPAD(LAST_INSERT_ID(), 9, '0'));
 END
 $$
 DELIMITER ;
@@ -110,7 +175,15 @@ INSERT INTO `transaksi_seq` (`no_transaksi`) VALUES
 (7),
 (8),
 (9),
-(10);
+(10),
+(12),
+(13),
+(14),
+(15),
+(16),
+(17),
+(18),
+(19);
 
 -- --------------------------------------------------------
 
@@ -128,7 +201,7 @@ CREATE TABLE `users` (
   `password` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `remember_token` varchar(255) NOT NULL
+  `remember_token` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -136,8 +209,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_pegawai`, `nama_pegawai`, `alamat`, `no_telp`, `jabatan`, `username`, `password`, `created_at`, `updated_at`, `remember_token`) VALUES
-('PRARARAMA000000009', 'Muh Bayu Aji', 'ashdjkashdka', '', 'Owner', 'mbayuajis', '$2y$10$To9BhiS3sRgYJacJprcsTO54k1/6viKEK3ZwoX9dgaxvfgrUW2D.q', '2019-01-28 07:51:37', '2019-01-26 12:50:15', 'fAOHXKhS2IykOXbpl4UjZI5PXsUGbNe3bBUpEGn2ltfvoFVdMO240npbSdxe'),
-('PRARARAMA000000011', 'Muh Bayu Sa', 'mbayuajis1', '', 'Kasir', 'mbayuajis1', '$2y$10$.5q4w39KrY/rCj6/o9JE0.SikIUcXVsFYhQvM8JlbclQV7/Cjef2K', '2019-01-26 20:05:24', '2019-01-26 13:05:24', 'X6mTDmDbuBnTZCd9ezUIgq8o8AedXNThowrgzmRmEMbQTAgj4uReIPUtAybU');
+('PRARARAMA000000009', 'Muh Bayu Aji', 'ashdjkashdka', '0972323', 'Owner', 'mbayuajis', '$2y$10$To9BhiS3sRgYJacJprcsTO54k1/6viKEK3ZwoX9dgaxvfgrUW2D.q', '2019-01-28 07:51:37', '2019-01-26 12:50:15', 'tyIcEthEfC8iInw5QLzEib1qLbMvDtrxSTFyuk7U7APBYHPU94GQxYdPfh7g'),
+('PRARARAMA000000011', 'Muh Bayu Sa', 'mbayuajis1', '0348348', 'Kasir', 'mbayuajis1', '$2y$10$.5q4w39KrY/rCj6/o9JE0.SikIUcXVsFYhQvM8JlbclQV7/Cjef2K', '2019-01-26 20:05:24', '2019-01-26 13:05:24', 'X6mTDmDbuBnTZCd9ezUIgq8o8AedXNThowrgzmRmEMbQTAgj4uReIPUtAybU'),
+('PRARARAMA000000016', 'admin', 'admin', '21312321', 'Owner', 'admin', '$2y$10$.k5Vf/8LfhpRiprr4STeceKc7b8lVXsM9yXDgbUWJs4c0vC.ba2p.', '2019-01-30 14:39:28', '2019-01-30 14:39:28', 'FV1DBSENDQ5jRELpLFUQwRmrHfMvrmsboNivuCmP9LBSdkgvzrmdabw04qCT');
 
 --
 -- Triggers `users`
@@ -175,7 +249,9 @@ INSERT INTO `users_seq` (`id`) VALUES
 (8),
 (9),
 (10),
-(11);
+(11),
+(15),
+(16);
 
 --
 -- Indexes for dumped tables
@@ -186,6 +262,14 @@ INSERT INTO `users_seq` (`id`) VALUES
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`id_barang`);
+
+--
+-- Indexes for table `barang_transaksi`
+--
+ALTER TABLE `barang_transaksi`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `no_transaksi` (`no_transaksi`),
+  ADD KEY `kode_barang` (`kode_barang`);
 
 --
 -- Indexes for table `transaksi`
@@ -221,23 +305,36 @@ ALTER TABLE `users_seq`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_barang` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `barang_transaksi`
+--
+ALTER TABLE `barang_transaksi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `transaksi_seq`
 --
 ALTER TABLE `transaksi_seq`
-  MODIFY `no_transaksi` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `no_transaksi` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users_seq`
 --
 ALTER TABLE `users_seq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `barang_transaksi`
+--
+ALTER TABLE `barang_transaksi`
+  ADD CONSTRAINT `barang_transaksi_ibfk_1` FOREIGN KEY (`kode_barang`) REFERENCES `barang` (`id_barang`),
+  ADD CONSTRAINT `barang_transaksi_ibfk_2` FOREIGN KEY (`no_transaksi`) REFERENCES `transaksi` (`no_transaksi`);
 
 --
 -- Constraints for table `transaksi`
