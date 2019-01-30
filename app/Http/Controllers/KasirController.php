@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kasir;
+use App\Models\Belanjaan;
+use App\Models\Barang;
+use App\Http\Requests\StoreBelanjaan;
+use Illuminate\Support\Facades\DB;
 
 class KasirController extends Controller
 {
@@ -39,11 +43,12 @@ class KasirController extends Controller
     {
         Kasir::create([
         	'id_pegawai' => session('user')->id_pegawai,
+            'status' => 'Memasukkan Belanjaan',
         ]);
 
-        $asd = Kasir::where('id_pegawai', session('user')->id_pegawai)->orderBy('created_at', 'desc')->first();
+        $cekNotransaksi = Kasir::where('id_pegawai', session('user')->id_pegawai)->orderBy('created_at', 'desc')->first();
 
-        return $asd->no_transaksi;
+        return redirect('/kasir/belanjaan/'.$cekNotransaksi->no_transaksi);
     }
 
     /**
@@ -91,9 +96,47 @@ class KasirController extends Controller
         //
     }
 
-    public function belanjaan()
+    public function belanjaan($id)
     {
-    	return view('kasir/kasir');
+        $cek = Kasir::where('no_transaksi', $id)->first();
+
+        if($cek == null)
+            abort(404);
+
+        $daftarBelanja = Belanjaan::select('kode_barang',DB::raw('COUNT(*) as qty'))->groupBy('kode_barang')->where('no_transaksi', $id)->with('detailBarang')->get();
+
+    	return view('kasir/belanjaan', ['id' => $id, 'daftarBelanjas' => $daftarBelanja]);
+    }
+
+    public function refrsBelanjaan($id)
+    {
+        $cek = Kasir::where('no_transaksi', $id)->first();
+
+        if($cek == null)
+            abort(404);
+
+        $daftarBelanja = Belanjaan::select('kode_barang',DB::raw('COUNT(*) as qty'))->groupBy('kode_barang')->where('no_transaksi', $id)->with('detailBarang')->get();
+
+        return view('kasir/refrsbelanjaan', ['id' => $id, 'daftarBelanjas' => $daftarBelanja]);
+    }
+
+    public function storeBelanjaan(StoreBelanjaan $request, $id){
+        $validate = $request->validated();
+
+        $cekBrng = Barang::where('id_barang', $request->kode_barang)->first();
+        if($cekBrng == null)
+            return response()->json(['sttus' => 'gagal']);
+
+        Belanjaan::create([
+            'no_transaksi' => $id,
+            'kode_barang' => $request->kode_barang
+        ]);
+
+        return response()->json(['sttus' => 'berhasil']);
+    }
+
+    public function destroyBelanjaan($notrans, $barang){
+        Belanjaan::where('no_transaksi', $notrans)->where('kode_barang', $barang)->delete();
     }
 
 }

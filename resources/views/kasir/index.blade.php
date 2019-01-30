@@ -26,6 +26,7 @@
                                             <th>Tgl. Transaksi</th> 
                                         	<th>No. Transaksi</th>                                          
                                             <th>Total</th>
+                                            <th>Status</th>
                                             <th>Nama Kasir</th>
                                         </tr>
                                     </thead>
@@ -35,6 +36,7 @@
                                             <td>{{ $transaksi->created_at }}</td>
                                         	<td>{{ $transaksi->no_transaksi }}</td>
                                             <td>120,000</td>
+                                            <td>{{ $transaksi->status }}</td>
                                             <td>{{ $transaksi->detailUserr->nama_pegawai }}</td>                                            
                                         </tr>
                                         @endforeach                                               

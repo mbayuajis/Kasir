@@ -9,7 +9,7 @@ class Kasir extends Model
     protected $primaryKey = 'no_transaksi';
     protected $table = "transaksi";
 	public $incrementing = false;
-    protected $fillable = ['id_pegawai'];
+    protected $fillable = ['id_pegawai', 'status'];
 
     function detailUserr()
     {

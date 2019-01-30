@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Kasir Prararama Sport</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon-->
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
@@ -179,6 +180,9 @@
                 {{ Session::get('message') }}
             </div>
             @endif
+            <div id="flash-message2" class="alert" role="alert">
+                <p id="message-flash"></p>
+            </div>
             <div class="block-header">
                @yield('content')
             </div>
@@ -308,7 +312,58 @@
                         $("#harga_jualE").val(data.harga_jual);
                     }
                 });
+            });
+
+            $("#formBelanja").submit(function(event){
+                event.preventDefault();
+                var link = $(this).attr('linkTambah');
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url : link,
+                    type: 'POST',
+                    data : {
+                        kode_barang: $("#kode_barangI").val()
+                    }, 
+                    success: function(data){
+                        if(data['sttus']=="gagal")
+                            alert("Kode Barang Tidak Ada!");
+                        else{
+                            $.ajax({
+                            url : link + "/refrs",
+                            success: function(data){
+                                $(".belanjaandaftar").html(data);
+                            }
+                            });
+                        }
+                    }
+                });
+                return false;
             }); 
+
+            $(".deleteBrg").click(function(event){
+                event.preventDefault();
+                var link = $(this).attr('action');
+                var idBrg = $(this).attr('idBrg');
+                alert(link);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: link + idBrg,
+                    type: 'DELETE',
+                    success: function(){
+                        $.ajax({
+                            url : link + "refrs",
+                            success: function(data){
+                                $(".belanjaandaftar").html(data);
+                            }
+                        });
+                    }
+                });
+                return false;
+            });
         });
     </script>
 </body>

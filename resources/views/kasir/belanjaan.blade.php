@@ -2,25 +2,29 @@
 
 @section('content')
 <div class="row clearfix">		
-	<div class="body">
-		<form method="POST">
-			<div class="col-md-2">
-				<input type="text" name="kodet" class="form-control" placeholder="No.Transaksi" />
-			</div>			
+	<div class="body col-lg-12">
+        <div class="row">
+            <div class="col-md-10">
+                <span>No. Transaksi: {{ $id }}</span>
+            </div> 
+        </div>
+        <div class="row">
+            <form id="formBelanja" linkTambah="/kasir/belanjaan/{{ $id }}" notrans="{{ $id }}">
+                {{ csrf_field() }}
+                <div class="form-line col-md-3">
+                    <input type="text" name="kode_barang" class="form-control" placeholder="Kode Barang" id="kode_barangI" />
+                </div>  
 
-			<div class="col-md-2">
-				<input type="text" name="kodeb" class="form-control" placeholder="Kode Barang" />
-			</div>	
-
-			<div class="col-md-2">
-				<input type="submit" name="simpan" class="btn btn-primary" value="Tambah"/>
-			</div>              
-		</form>        
+                <div class="form-line">
+                    <input type="submit" name="simpan" class="btn btn-primary" value="Tambah" id="tambahBelanja" />
+                </div>           
+            </form>
+        </div>  
 	</div>
 </div>
-<br><br><br><br>
 <div class="row clearfix">    
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
                     <div class="form-group">
                         <a href="?page=kasir&aksi=kembali" class="btn btn-primary"><i class="material-icons">replay</i>Kembali</a>    
                     </div>
@@ -32,12 +36,12 @@
                             </h2>                      
                         </div>
                         <div class="body">
-                            <div class="table-responsive">
+                            <div class="table-responsive belanjaandaftar">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Barcode</th>                                          
+                                            <th>Kode Barang</th>                                          
                                             <th>Nama Barang</th>
                                             <th>Harga</th>
                                             <th>Qty</th>
@@ -45,24 +49,29 @@
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
+                                    {{? $no = 0 ?}}
+                                    {{? $total = 0 ?}}
                                     <tbody>
+                                        @foreach ($daftarBelanjas as $daftarBelanja)
+                                        {{? $no++ ?}}
                                         <tr>
-                                            <td>1</td>
-                                            <td>201901001</td>
-                                            <td>T-Shirt</td>
-                                            <td>156,000</td>
-                                            <td>1</td>
-                                            <td>156,000</td>
+                                            <td>{{ $no }}</td>
+                                            <td>{{ $daftarBelanja->detailBarang->id_barang }}</td>
+                                            <td>{{ $daftarBelanja->detailBarang->nama_barang }}</td>
+                                            <td>{{ $daftarBelanja->detailBarang->harga_jual }}</td>
+                                            <td>{{ $daftarBelanja->qty }}</td>
+                                            <td>{{ $daftarBelanja->qty * $daftarBelanja->detailBarang->harga_jual }}</td>
+                                            {{? $total = $total + ($daftarBelanja->qty * $daftarBelanja->detailBarang->harga_jual) ?}}
                                             <td>
-                                            	<a href="" class="btn btn-success"><i class="material-icons">remove</i></a>
-                                            	<a href="" class="btn btn-success"><i class="material-icons">add</i></a>
-                                            	<a href="" class="btn btn-danger"><i class="material-icons">delete</i></a>
+                                                <a href="" class="btn btn-danger"><i class="material-icons">remove</i></a>
+                                                <a action="/kasir/belanjaan/{{ $id }}/" idBrg="{{ $daftarBelanja->detailBarang->id_barang }}" class="btn btn-danger deleteBrg"><i class="material-icons">delete</i></a>
                                             </td>
-                                        </tr>                                       
+                                        </tr>      
+                                        @endforeach                                 
                                     </tbody>
                                     <tr>
                                     	<th colspan="5" style="text-align: right;">Total</th>
-                                    	<td><input type="text" value="156,000"></td>
+                                    	<td><input type="text" value="{{ $total }}" disabled></td>
                                     </tr>
 
                                     <tr>

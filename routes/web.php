@@ -39,7 +39,10 @@ Route::group(['middleware' => 'auth:web'], function () {
 	    'create'
 	]);
 	
-	Route::get('/kasir/belanjaan', 'KasirController@belanjaan');
+	Route::get('/kasir/belanjaan/{id}', 'KasirController@belanjaan');
+	Route::get('/kasir/belanjaan/{id}/refrs', 'KasirController@refrsbelanjaan');
+	Route::post('/kasir/belanjaan/{id}', 'KasirController@storeBelanjaan');
+	Route::delete('/kasir/belanjaan/{notrans}/{barang}', 'KasirController@destroyBelanjaan');
 
 	Route::get('/report', 'ReportController@index');
 });

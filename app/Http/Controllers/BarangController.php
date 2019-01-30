@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Barang;
+use Validator;
+use App\Http\Requests\StoreBarang;
 
 class BarangController extends Controller
 {
@@ -34,7 +36,7 @@ class BarangController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBarang $request)
     {
     	$validated = $request->validated();
         Barang::create([

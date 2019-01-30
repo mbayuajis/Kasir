@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,6 +18,10 @@ class AppServiceProvider extends ServiceProvider
         {
             $view->with('user', session('user')->nama_pegawai);
             $view->with('jabatan', session('user')->jabatan);
+        });
+
+        Blade::extend(function($value) {
+            return preg_replace('/\{\{\?(.+)\?\}\}/', '<?php ${1} ?>', $value);
         });
     }
 
