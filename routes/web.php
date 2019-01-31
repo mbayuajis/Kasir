@@ -42,7 +42,11 @@ Route::group(['middleware' => 'auth:web'], function () {
 	Route::get('/kasir/belanjaan/{id}', 'KasirController@belanjaan');
 	Route::get('/kasir/belanjaan/{id}/refrs', 'KasirController@refrsbelanjaan');
 	Route::post('/kasir/belanjaan/{id}', 'KasirController@storeBelanjaan');
+	Route::post('/kasir/belanjaan/{id}/simpan', 'KasirController@simpanBelanjaan');
 	Route::delete('/kasir/belanjaan/{notrans}/{barang}', 'KasirController@destroyBelanjaan');
+	Route::delete('/kasir/belanjaan/{notrans}/{barang}/per', 'KasirController@destroyBelanjaanper');
+
+	Route::get('/penjualan', 'KasirController@penjualanHariini');
 
 	Route::get('/report', 'ReportController@index');
 });

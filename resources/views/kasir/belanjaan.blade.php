@@ -9,7 +9,7 @@
             </div> 
         </div>
         <div class="row">
-            <form id="formBelanja" linkTambah="/kasir/belanjaan/{{ $id }}" notrans="{{ $id }}">
+            <form id="formBelanja" linkTambah="/kasir/belanjaan/{{ $id }}" notrans="{{ $id }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-line col-md-3">
                     <input type="text" name="kode_barang" class="form-control" placeholder="Kode Barang" id="kode_barangI" />
@@ -63,30 +63,34 @@
                                             <td>{{ $daftarBelanja->qty * $daftarBelanja->detailBarang->harga_jual }}</td>
                                             {{? $total = $total + ($daftarBelanja->qty * $daftarBelanja->detailBarang->harga_jual) ?}}
                                             <td>
-                                                <a href="" class="btn btn-danger"><i class="material-icons">remove</i></a>
-                                                <a action="/kasir/belanjaan/{{ $id }}/" idBrg="{{ $daftarBelanja->detailBarang->id_barang }}" class="btn btn-danger deleteBrg"><i class="material-icons">delete</i></a>
+                                                <a action="/kasir/belanjaan/{{ $id }}/" class="btn btn-danger deleteBrgper" onclick="destroyBelanjaanper({{ $daftarBelanja->detailBarang->id_barang }})"><i class="material-icons">remove</i></a>
+                                                <a action="/kasir/belanjaan/{{ $id }}/" class="btn btn-danger deleteBrg" onclick="destroyBelanjaan({{ $daftarBelanja->detailBarang->id_barang }})" id="deleteBrangku"><i class="material-icons">delete</i></a>
                                             </td>
                                         </tr>      
                                         @endforeach                                 
                                     </tbody>
+                                        <form action="/kasir/belanjaan/{{ $id }}/simpan" method="POST">
                                     <tr>
-                                    	<th colspan="5" style="text-align: right;">Total</th>
-                                    	<td><input type="text" value="{{ $total }}" disabled></td>
+                                            {{ csrf_field() }}
+                                        <th colspan="5" style="text-align: right;">Total</th>
+                                        <td><input type="text" value="{{ $total }}" name="total" id="totalBelanja" disabled></td>
                                     </tr>
 
                                     <tr>
-                                    	<th colspan="5" style="text-align: right;">Tunai</th>
-                                    	<td><input type="text" name="bayar" id="bayar"></td>
+                                        <th colspan="5" style="text-align: right;">Tunai</th>
+                                        <td><input type="number" name="bayar" id="bayarBelanja" onkeyup="kembalianuBelanja()"></td>
                                     </tr>
                                     <tr>
-                                    	<th colspan="5" style="text-align: right;">Kembalian</th>
-                                    	<td>
-                                    		<input type="text" name="kembalian" id="kembalian">
-                                    		<a href="" class="btn btn-primary"><i class="material-icons">save</i>Simpan</a>
-                                			<a href="" class="btn btn-success"><i class="material-icons">local_printshop</i>Cetak Struk</a>
-                                    	</td>
-                                    	 
+                                        <th colspan="5" style="text-align: right;">Kembalian</th>
+                                        <td>
+                                            <input type="number" name="kembalian" id="kembalianBelanja" disabled>
+                                            <button type="submit" class="btn btn-primary" id="simpanBelanja"><i class="material-icons">save</i>Simpan</button>
+                                       
+                                            <a class="btn btn-success"><i class="material-icons">local_printshop</i>Cetak Struk</a>
+                                        </td>
+                                         
                                     </tr>
+                                     </form>
                                 </table>
                             </div>
                         </div>

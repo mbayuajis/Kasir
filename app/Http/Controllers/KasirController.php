@@ -99,9 +99,11 @@ class KasirController extends Controller
     public function belanjaan($id)
     {
         $cek = Kasir::where('no_transaksi', $id)->first();
-
+        $cek2 = Kasir::where('no_transaksi', $id)->where('status', 'Selesai')->first();
         if($cek == null)
             abort(404);
+        if($cek2 != null)
+            return redirect('kasir');
 
         $daftarBelanja = Belanjaan::select('kode_barang',DB::raw('COUNT(*) as qty'))->groupBy('kode_barang')->where('no_transaksi', $id)->with('detailBarang')->get();
 
@@ -111,9 +113,11 @@ class KasirController extends Controller
     public function refrsBelanjaan($id)
     {
         $cek = Kasir::where('no_transaksi', $id)->first();
-
+        $cek2 = Kasir::where('no_transaksi', $id)->where('status', 'Selesai')->first();
         if($cek == null)
             abort(404);
+        if($cek2 != null)
+            return redirect('kasir');
 
         $daftarBelanja = Belanjaan::select('kode_barang',DB::raw('COUNT(*) as qty'))->groupBy('kode_barang')->where('no_transaksi', $id)->with('detailBarang')->get();
 
@@ -131,12 +135,26 @@ class KasirController extends Controller
             'no_transaksi' => $id,
             'kode_barang' => $request->kode_barang
         ]);
-
-        return response()->json(['sttus' => 'berhasil']);
     }
 
     public function destroyBelanjaan($notrans, $barang){
         Belanjaan::where('no_transaksi', $notrans)->where('kode_barang', $barang)->delete();
+    }
+
+    public function destroyBelanjaanper($notrans, $barang){
+        Belanjaan::where('no_transaksi', $notrans)->where('kode_barang', $barang)->first()->delete();
+    }
+
+    public function simpanBelanjaan(Request $request, $id){
+        Kasir::where('no_transaksi', $id)->update([
+            'status' => 'Selesai'
+        ]);
+
+        return redirect('kasir')->with('message', 'Belnjaan ' . $id . ' Selesai!');
+    }
+
+    public function penjualanHariini(){
+        
     }
 
 }

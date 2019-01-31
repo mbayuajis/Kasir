@@ -34,7 +34,7 @@
                                         @foreach ($transaksis as $transaksi)
                                         <tr>
                                             <td>{{ $transaksi->created_at }}</td>
-                                        	<td>{{ $transaksi->no_transaksi }}</td>
+                                        	<td><a href="/kasir/belanjaan/{{ $transaksi->no_transaksi }}" class="btn {{ ($transaksi->status!='Selesai') ? 'btn-danger' : 'disabled btn-success' }}">{{ $transaksi->no_transaksi }}</a></td>
                                             <td>120,000</td>
                                             <td>{{ $transaksi->status }}</td>
                                             <td>{{ $transaksi->detailUserr->nama_pegawai }}</td>                                            

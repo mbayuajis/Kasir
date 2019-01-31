@@ -114,11 +114,11 @@
                 @endif
             </div>
             </div>
-            <div class="form-group">
-                <div class="form-line">
+            {{-- <div class="form-group"> --}}
+                {{-- <div class="form-line"> --}}
                 <label for="jabatan">Jabatan</label>
-                <select name="jabatan" id="jabatan">
-                    <option value="Kasir" selected>Kasir</option>
+                <select name="jabatan" id="jabatan" {{-- class="form-control" --}}>
+                    <option value="Kasir">Kasir</option>
                     <option value="Owner">Owner</option>
                 </select>
                 @if ($errors->has('jabatan'))
@@ -128,7 +128,7 @@
                         </div>
                     @endforeach
                 @endif
-            </div>
+            {{-- </div> --}}
             </div>
             <div class="form-group">
                 <div class="form-line">

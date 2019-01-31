@@ -341,17 +341,44 @@
                 });
                 return false;
             }); 
+        });
 
-            $(".deleteBrg").click(function(event){
-                event.preventDefault();
-                var link = $(this).attr('action');
-                var idBrg = $(this).attr('idBrg');
-                alert(link);
+        function kembalianuBelanja(){
+                var total = $("#totalBelanja").val();
+                var bayar = $("#bayarBelanja").val();
+                var kembali = bayar - total;
+                $("#kembalianBelanja").val(kembali);
+
+        }
+
+            function destroyBelanjaan(id){
+                var link = $(".deleteBrg").attr('action');
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: link + idBrg,
+                    url: link + id,
+                    type: 'DELETE',
+                    success: function(data){
+                        // alert(data);
+                        $.ajax({
+                            url : link + "refrs",
+                            success: function(data){
+                                $(".belanjaandaftar").html(data);
+                            }
+                        });
+                    }
+                });
+                return false;
+            }
+
+            function destroyBelanjaanper(id){
+                var link = $(".deleteBrgper").attr('action');
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: link + id + "/per",
                     type: 'DELETE',
                     success: function(){
                         $.ajax({
@@ -363,8 +390,7 @@
                     }
                 });
                 return false;
-            });
-        });
+            }
     </script>
 </body>
 
