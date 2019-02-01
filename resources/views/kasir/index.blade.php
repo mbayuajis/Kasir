@@ -13,9 +13,12 @@
                         </div>
                         
                         <div class="body">
-                            <div class="form-group">
-                                <a href="/kasir/belanjaan" class="btn btn-primary"><i class="material-icons">add_circle_outline</i>Tambah</a>
-                            </div>
+                            <form action="/kasir" method="POST">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <button type="submit" name="tambah" class="btn btn-primary"><i class="material-icons">add_circle_outline</i>Tambah</button>
+                                </div>
+                            </form>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">                               	
                                     <thead>                                    	
@@ -23,22 +26,20 @@
                                             <th>Tgl. Transaksi</th> 
                                         	<th>No. Transaksi</th>                                          
                                             <th>Total</th>
+                                            <th>Status</th>
                                             <th>Nama Kasir</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($transaksis as $transaksi)
                                         <tr>
-                                            <td>2019/01/22</td>
-                                        	<td>201902001</td>
+                                            <td>{{ $transaksi->created_at }}</td>
+                                        	<td><a href="/kasir/belanjaan/{{ $transaksi->no_transaksi }}" class="btn {{ ($transaksi->status!='Selesai') ? 'btn-danger' : 'disabled btn-success' }}">{{ $transaksi->no_transaksi }}</a></td>
                                             <td>120,000</td>
-                                            <td>Anjas Madani</td>                                            
+                                            <td>{{ $transaksi->status }}</td>
+                                            <td>{{ $transaksi->detailUserr->nama_pegawai }}</td>                                            
                                         </tr>
-                                        <tr>
-                                            <td>2019/01/22</td>
-                                        	<td>201902002</td>                                            
-                                            <td>5,000,000</td>
-                                            <td>Muh. Bayu</td>
-                                        </tr>                                                
+                                        @endforeach                                               
                                     </tbody>
                                 </table>
                                 

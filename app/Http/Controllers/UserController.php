@@ -44,13 +44,14 @@ class UserController extends Controller
      */
     public function store(StoreUser $request)
     {
-
         $validated = $request->validated();
         $password = Hash::make($request->password);
         User::create([
             // 'id_pegawai' => $request->id_pegawai,
             'nama_pegawai' => $request->nama_pegawai,
             'alamat' => $request->alamat,
+            'no_telp' => $request->no_telp,
+            'jabatan' => $request->jabatan,
             'username' => $request->username,
             'password' => $password,
         ]);
@@ -81,10 +82,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::where('id_pegawai', $id)->first();
-        $users = User::all();
-        if(!$user)
-            abort(404);
+        $user = User::where('id_pegawai', $id)->firstOrFail();
+
         return response()->json($user);
         // return view('user/index', ['edituser' => $user, 'users' => $users]);
     }

@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Kasir Prararama Sport</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon-->
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
@@ -179,6 +180,9 @@
                 {{ Session::get('message') }}
             </div>
             @endif
+            <div id="flash-message2" class="alert" role="alert">
+                <p id="message-flash"></p>
+            </div>
             <div class="block-header">
                @yield('content')
             </div>
@@ -277,13 +281,15 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $(".editUser").click(function(){
-                var $linkE = $(this).closest("td");
-                var link = $linkE.find("#linkU").attr('linkUser');
+                var $linkEU = $(this).closest("td");
+                var link = $linkEU.find("#linkU").attr('linkUser');
                 $.ajax({
                     url : link,
                     success: function(data){
                         $('#mybar4').modal('show');
                         $('#formEdit').attr('action', '/user/' + data.id_pegawai);
+                        $('#jabatanEdit option[value=' + data.jabatan + ']').attr('selected',true);
+                        $("#no_telpEdit").val(data.no_telp);
                         $("#namaEdit").val(data.nama_pegawai);
                         $("#alamatEdit").val(data.alamat);
                         $("#usernameEdit").val(data.username);
@@ -291,8 +297,100 @@
                     }
                 });
             });
-                
+               
+            $(".editBarang").click(function(){
+                var $linkEB = $(this).closest("td");
+                var link = $linkEB.find("#linkB").attr('linkBarang');
+                $.ajax({
+                    url : link,
+                    success: function(data){
+                        $('#mybar2').modal('show');
+                        $('#formEdit').attr('action', '/barang/' + data.id_barang);
+                        $("#nama_barangE").val(data.nama_barang);
+                        $("#stockN").text(data.stock + ' + ');
+                        $("#harga_beliE").val(data.harga_beli);
+                        $("#harga_jualE").val(data.harga_jual);
+                    }
+                });
+            });
+
+            $("#formBelanja").submit(function(event){
+                event.preventDefault();
+                var link = $(this).attr('linkTambah');
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url : link,
+                    type: 'POST',
+                    data : {
+                        kode_barang: $("#kode_barangI").val()
+                    }, 
+                    success: function(data){
+                        if(data['sttus']=="gagal")
+                            alert("Kode Barang Tidak Ada!");
+                        else{
+                            $.ajax({
+                            url : link + "/refrs",
+                            success: function(data){
+                                $(".belanjaandaftar").html(data);
+                            }
+                            });
+                        }
+                    }
+                });
+                return false;
+            }); 
         });
+
+        function kembalianuBelanja(){
+                var total = $("#totalBelanja").val();
+                var bayar = $("#bayarBelanja").val();
+                var kembali = bayar - total;
+                $("#kembalianBelanja").val(kembali);
+
+        }
+
+            function destroyBelanjaan(id){
+                var link = $(".deleteBrg").attr('action');
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: link + id,
+                    type: 'DELETE',
+                    success: function(data){
+                        // alert(data);
+                        $.ajax({
+                            url : link + "refrs",
+                            success: function(data){
+                                $(".belanjaandaftar").html(data);
+                            }
+                        });
+                    }
+                });
+                return false;
+            }
+
+            function destroyBelanjaanper(id){
+                var link = $(".deleteBrgper").attr('action');
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: link + id + "/per",
+                    type: 'DELETE',
+                    success: function(){
+                        $.ajax({
+                            url : link + "refrs",
+                            success: function(data){
+                                $(".belanjaandaftar").html(data);
+                            }
+                        });
+                    }
+                });
+                return false;
+            }
     </script>
 </body>
 
