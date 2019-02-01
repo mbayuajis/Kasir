@@ -20,25 +20,29 @@
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                         <tr>
-                                            <th>Tgl. Transaksi</th>
+                                            <th>Waktu Transaksi</th>
                                             <th>No. Transaksi</th>
-                                            <th>Barcode</th>                                          
+                                            <th>Kode Barang</th>                                          
                                             <th>Nama Barang</th>
                                             <th>Qty</th>
                                             <th>Harga Beli</th>
                                             <th>Harga Jual</th>
+                                            <th>Nama Kasir</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($dataReports as $dataReport)
                                         <tr>
-                                            <td>2019/01/22</td>
-                                            <td>20190122</td>
-                                            <td>201901001</td>
-                                            <td>T-Shirt</td>
-                                            <td>2</td>
-                                            <td>312,000</td>
-                                            <td>312,000</td>
-                                        </tr>                                       
+                                            <td>{{ $dataReport->created_at }}</td>
+                                            <td>{{ $dataReport->no_transaksi }}</td>
+                                            <td>{{ $dataReport->kode_barang }}</td>
+                                            <td>{{ $dataReport->nama_barang }}</td>
+                                            <td>{{ $dataReport->qty }}</td>
+                                            <td>{{ $dataReport->harga_beli }}</td>
+                                            <td>{{ $dataReport->harga_jual }}</td>
+                                            <td>{{ $dataReport->nama_kasir }}</td>
+                                        </tr>                
+                                        @endforeach                       
                                     </tbody>
                                 </table>
                                                           

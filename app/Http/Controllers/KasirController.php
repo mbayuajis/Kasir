@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kasir;
-use App\Models\Belanjaan;
-use App\Models\Barang;
 use App\Http\Requests\StoreBelanjaan;
-use Illuminate\Support\Facades\DB;
 
 class KasirController extends Controller
 {
@@ -18,9 +15,9 @@ class KasirController extends Controller
      */
     public function index()
     {
-    	$transaksis = Kasir::with('detailUserr')->get();
-    	// dd($transaksis);
-        return view('kasir/index', ['transaksis' => $transaksis]);
+    	$dataIndex = Kasir::indexKasir();
+    	
+        return view('kasir/index', ['transaksis' => $dataIndex]);
     }
 
     /**
@@ -41,14 +38,9 @@ class KasirController extends Controller
      */
     public function store(Request $request)
     {
-        Kasir::create([
-        	'id_pegawai' => session('user')->id_pegawai,
-            'status' => 'Memasukkan Belanjaan',
-        ]);
+        $dataStore = Kasir::storeTransaksi();
 
-        $cekNotransaksi = Kasir::where('id_pegawai', session('user')->id_pegawai)->orderBy('created_at', 'desc')->first();
-
-        return redirect('/kasir/belanjaan/'.$cekNotransaksi->no_transaksi);
+        return redirect('/kasir/belanjaan/'.$dataStore);
     }
 
     /**
@@ -98,84 +90,75 @@ class KasirController extends Controller
 
     public function belanjaan($id)
     {
-        $cek = Kasir::where('no_transaksi', $id)->first();
-        $cek2 = Kasir::where('no_transaksi', $id)->where('status', 'Selesai')->first();
-       
-        if($cek == null)
-            abort(404);
+        $dataBelanjaan = Kasir::indexBelanjaan($id);
 
-        $cekstat = "";
-        if($cek2 != null)
-            $cekstat = $cek2->status;
-
-        $daftarBelanja = Belanjaan::select('kode_barang',DB::raw('COUNT(*) as qty'))->groupBy('kode_barang')->where('no_transaksi', $id)->with('detailBarang')->get();
-
-    	return view('kasir/belanjaan', ['id' => $id, 'daftarBelanjas' => $daftarBelanja, 'statustrans' => $cekstat]);
+    	return view('kasir/belanjaan', ['id' => $id, 'daftarBelanjas' => $dataBelanjaan['daftarBelanja'], 'statustrans' => $dataBelanjaan['cekstat']]);
     }
 
     public function refrsBelanjaan($id)
     {
-        $cek = Kasir::where('no_transaksi', $id)->first();
-        $cek2 = Kasir::where('no_transaksi', $id)->where('status', 'Selesai')->first();
-        if($cek == null)
-            abort(404);
-        if($cek2 != null)
-            return redirect('kasir');
+        $dataBelanjaanrfrs = Kasir::refreshBelanjaan($id);
 
-        $daftarBelanja = Belanjaan::select('kode_barang',DB::raw('COUNT(*) as qty'))->groupBy('kode_barang')->where('no_transaksi', $id)->with('detailBarang')->get();
+        if($dataBelanjaanrfrs['cek2'] != null)
+            return redirect('/kasir');
 
-        return view('kasir/refrsbelanjaan', ['id' => $id, 'daftarBelanjas' => $daftarBelanja]);
+        return view('kasir/refrsbelanjaan', ['id' => $id, 'daftarBelanjas' => $dataBelanjaanrfrs['daftarBelanja']]);
     }
 
     public function storeBelanjaan(StoreBelanjaan $request, $id){
         $validate = $request->validated();
 
-        $cekBrng = Barang::where('id_barang', $request->kode_barang)->first();
-        if($cekBrng == null)
+        $cekBrng = Kasir::storeBelanjaanm($request, $id);
+        if($cekBrng == "tidakada")
             return response()->json(['sttus' => 'gagal']);
-
-        Barang::where('id_barang', $request->kode_barang)->update([
-            'stock' => $cekBrng->stock - 1,
-        ]);
-
-        Belanjaan::create([
-            'no_transaksi' => $id,
-            'kode_barang' => $request->kode_barang
-        ]);
+        else if($cekBrng == "habis")
+            return response()->json(['sttus' => 'habis']);
     }
 
     public function destroyBelanjaan($notrans, $barang){
-        Belanjaan::where('no_transaksi', $notrans)->where('kode_barang', $barang)->delete();
+        Kasir::destroyBelanjaanm($notrans, $barang);
     }
 
     public function destroyBelanjaanper($notrans, $barang){
-        Belanjaan::where('no_transaksi', $notrans)->where('kode_barang', $barang)->first()->delete();
+        Kasir::destroyBelanjaanperm($notrans, $barang);
     }
 
     public function simpanBelanjaan(Request $request, $id){
-        Kasir::where('no_transaksi', $id)->update([
-            'status' => 'Selesai'
-        ]);
+        Kasir::simpanBelanjaanm($id);
 
         return redirect('kasir')->with('message', 'Belnjaan ' . $id . ' Selesai!');
     }
 
     public function penjualanHariini(){
-        $barangHris = Belanjaan::join('transaksi', 'barang_transaksi.no_transaksi', '=', 'transaksi.no_transaksi')
-            ->join('barang', 'barang_transaksi.kode_barang', '=', 'barang.id_barang')
-            ->where('transaksi.no_transaksi', 'like', '%' . date('Y-m-d') . '%')
-            ->where('transaksi.status', 'Selesai')
-            ->select('transaksi.*', 'barang_transaksi.*', 'barang.*')
-            ->get();
+        return Kasir::ppHriini();
+    }
 
-        $profitHri = 0;
-        $penjualanHri = 0;
-        foreach ($barangHris as $barangHri) {
-            $profitHri = $profitHri + ($barangHri->harga_jual - $barangHri->harga_beli);
-            $penjualanHri = $penjualanHri + $barangHri->harga_jual;
+    public function asdpo(){
+        // $asdq = Belanjaan::select('kode_barang', DB::raw('COUNT(*) as qty'))->with(['detailBarang' => function($query){
+        //     $query->select('id_barang', 'nama_barang');
+        // }])->with(['detailTransaksi' => function($query){
+        //     $query->select('no_transaksi');
+        // }])->groupBy('kode_barang')->get();
+
+        $reportData = Kasir::with(['detailBelanjaan' => function($query){
+            $query->with(['detailBarang' => function($queryy){
+                $queryy->select('harga_jual', 'harga_beli', 'nama_barang', 'id_barang');
+            }])->select('kode_barang', 'no_transaksi', DB::raw('COUNT(kode_barang) as jum'))->groupBy('kode_barang', 'no_transaksi');
+        }])->with(['detailUserr' => function($query){
+            $query->select('nama_pegawai', 'id_pegawai');
+        }])->where('no_transaksi', '2019-01-31-000000019')->first();
+
+        foreach ($reportData->detailBelanjaan as $key) {
+            Report::create([
+                'no_transaksi' => $reportData->no_transaksi,
+                'kode_barang' => $key->kode_barang,
+                'nama_barang' => $key->detailBarang->nama_barang,       
+                'qty' => $key->jum,
+                'harga_beli' => $key->detailBarang->harga_beli,
+                'harga_jual' => $key->detailBarang->harga_jual,
+                'nama_kasir' => $reportData->detailUserr->nama_pegawai,
+            ]);
         }
-
-        return response()->json(['profit' => $profitHri, 'penjualan' => $penjualanHri]);
     }
 
 }
