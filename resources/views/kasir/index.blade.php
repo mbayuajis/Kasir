@@ -24,8 +24,7 @@
                                     <thead>                                    	
                                         <tr>
                                             <th>Tgl. Transaksi</th> 
-                                        	<th>No. Transaksi</th>                                          
-                                            <th>Total</th>
+                                        	<th>No. Transaksi</th>     
                                             <th>Status</th>
                                             <th>Nama Kasir</th>
                                         </tr>
@@ -34,8 +33,7 @@
                                         @foreach ($transaksis as $transaksi)
                                         <tr>
                                             <td>{{ $transaksi->created_at }}</td>
-                                        	<td><a href="/kasir/belanjaan/{{ $transaksi->no_transaksi }}" class="btn {{ ($transaksi->status!='Selesai') ? 'btn-danger' : 'disabled btn-success' }}">{{ $transaksi->no_transaksi }}</a></td>
-                                            <td>120,000</td>
+                                        	<td><a href="/kasir/belanjaan/{{ $transaksi->no_transaksi }}" class="btn {{ ($transaksi->status!='Selesai') ? 'btn-danger' : 'btn-success' }}">{{ $transaksi->no_transaksi }}</a></td>
                                             <td>{{ $transaksi->status }}</td>
                                             <td>{{ $transaksi->detailUserr->nama_pegawai }}</td>                                            
                                         </tr>

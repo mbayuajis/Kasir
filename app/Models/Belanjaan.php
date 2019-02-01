@@ -14,4 +14,10 @@ class Belanjaan extends Model
     {
     	return $this->hasOne('App\Models\Barang', 'id_barang', 'kode_barang');
     }
+
+    function detailTransaksi()
+    {
+    	return $this->hasOne('App\Models\Kasir', 'no_transaksi', 'no_transaksi');
+    }
+
 }
