@@ -341,56 +341,72 @@
                 });
                 return false;
             }); 
+
+            $.ajax({
+                url: '/penjualan',
+                success: function(data){
+                    $("#penjualanHriini").text(data.penjualan);
+                    $("#profitHriini").text(data.profit);
+                }
+            });
+
+
+            $("#simpanBelanja").prop('disabled', true);
+
         });
 
         function kembalianuBelanja(){
-                var total = $("#totalBelanja").val();
-                var bayar = $("#bayarBelanja").val();
-                var kembali = bayar - total;
-                $("#kembalianBelanja").val(kembali);
-
+            var total = $("#totalBelanja").val();
+            var bayar = $("#bayarBelanja").val();
+            var kembali = bayar - total;
+            $("#kembalianBelanja").val(kembali);
+            if(kembali < 0){
+                $("#simpanBelanja").prop('disabled', true);
+            }else{
+                $("#simpanBelanja").prop('disabled', false);
+            }
         }
 
-            function destroyBelanjaan(id){
-                var link = $(".deleteBrg").attr('action');
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: link + id,
-                    type: 'DELETE',
-                    success: function(data){
-                        // alert(data);
-                        $.ajax({
-                            url : link + "refrs",
-                            success: function(data){
-                                $(".belanjaandaftar").html(data);
-                            }
-                        });
-                    }
-                });
-                return false;
-            }
+        function destroyBelanjaan(id){
+            var link = $(".deleteBrg").attr('action');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: link + id,
+                type: 'DELETE',
+                success: function(data){
+                    // alert(data);
+                    $.ajax({
+                        url : link + "refrs",
+                        success: function(data){
+                            $(".belanjaandaftar").html(data);
+                        }
+                    });
+                }
+            });
+            return false;
+        }
 
-            function destroyBelanjaanper(id){
-                var link = $(".deleteBrgper").attr('action');
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: link + id + "/per",
-                    type: 'DELETE',
-                    success: function(){
-                        $.ajax({
-                            url : link + "refrs",
-                            success: function(data){
-                                $(".belanjaandaftar").html(data);
-                            }
-                        });
-                    }
-                });
-                return false;
-            }
+        function destroyBelanjaanper(id){
+            var link = $(".deleteBrgper").attr('action');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: link + id + "/per",
+                type: 'DELETE',
+                success: function(){
+                    $.ajax({
+                        url : link + "refrs",
+                        success: function(data){
+                            $(".belanjaandaftar").html(data);
+                        }
+                    });
+                }
+            });
+            return false;
+        }
     </script>
 </body>
 

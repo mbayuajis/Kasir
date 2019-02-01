@@ -5,7 +5,7 @@
             <div class="block-header">
                 <h1><b>DASHBOARD</b></h1>
             </div>
-
+            
             <!-- Widgets -->
             <div class="row clearfix">
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -37,7 +37,7 @@
                         </div>
                         <div class="content">
                             <div class="text"><b>Penjualan Hari Ini</b></div>
-                            <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20"></div>
+                            <div class="number count-to" id="penjualanHriini" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20"></div>
                         </div>
                     </div>
                 </div> 
@@ -48,7 +48,7 @@
                         </div>
                         <div class="content">
                             <div class="text"><b>Profit Hari Ini</b></div>
-                            <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20"></div>
+                            <div class="number count-to" id="profitHriini" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20"></div>
                         </div>
                     </div>
                 </div>              

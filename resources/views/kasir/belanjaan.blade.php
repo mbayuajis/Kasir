@@ -12,11 +12,11 @@
             <form id="formBelanja" linkTambah="/kasir/belanjaan/{{ $id }}" notrans="{{ $id }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-line col-md-3">
-                    <input type="text" name="kode_barang" class="form-control" placeholder="Kode Barang" id="kode_barangI" />
+                    <input type="text" name="kode_barang" class="form-control" placeholder="Kode Barang" id="kode_barangI" {{ ($statustrans=='Selesai') ? 'disabled' : '' }} />
                 </div>  
 
                 <div class="form-line">
-                    <input type="submit" name="simpan" class="btn btn-primary" value="Tambah" id="tambahBelanja" />
+                    <input type="submit" name="simpan" class="btn btn-primary" value="Tambah" id="tambahBelanja" {{ ($statustrans=='Selesai') ? 'disabled' : '' }}/>
                 </div>           
             </form>
         </div>  
@@ -26,7 +26,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
                     <div class="form-group">
-                        <a href="?page=kasir&aksi=kembali" class="btn btn-primary"><i class="material-icons">replay</i>Kembali</a>    
+                        <a href="/kasir" class="btn btn-primary"><i class="material-icons">replay</i>Kembali</a>    
                     </div>
                     
                     <div class="card">
@@ -63,36 +63,38 @@
                                             <td>{{ $daftarBelanja->qty * $daftarBelanja->detailBarang->harga_jual }}</td>
                                             {{? $total = $total + ($daftarBelanja->qty * $daftarBelanja->detailBarang->harga_jual) ?}}
                                             <td>
-                                                <a action="/kasir/belanjaan/{{ $id }}/" class="btn btn-danger deleteBrgper" onclick="destroyBelanjaanper({{ $daftarBelanja->detailBarang->id_barang }})"><i class="material-icons">remove</i></a>
-                                                <a action="/kasir/belanjaan/{{ $id }}/" class="btn btn-danger deleteBrg" onclick="destroyBelanjaan({{ $daftarBelanja->detailBarang->id_barang }})" id="deleteBrangku"><i class="material-icons">delete</i></a>
+                                                <a action="/kasir/belanjaan/{{ $id }}/" class="btn btn-danger deleteBrgper {{ ($statustrans=='Selesai') ? 'disabled' : '' }}" onclick="destroyBelanjaanper({{ $daftarBelanja->detailBarang->id_barang }})"><i class="material-icons">remove</i></a>
+                                                <a action="/kasir/belanjaan/{{ $id }}/" class="btn btn-danger deleteBrg {{ ($statustrans=='Selesai') ? 'disabled' : '' }}" onclick="destroyBelanjaan({{ $daftarBelanja->detailBarang->id_barang }})" id="deleteBrangku"><i class="material-icons">delete</i></a>
                                             </td>
                                         </tr>      
                                         @endforeach                                 
                                     </tbody>
-                                        <form action="/kasir/belanjaan/{{ $id }}/simpan" method="POST">
+                                        
                                     <tr>
-                                            {{ csrf_field() }}
+                                            
                                         <th colspan="5" style="text-align: right;">Total</th>
                                         <td><input type="text" value="{{ $total }}" name="total" id="totalBelanja" disabled></td>
                                     </tr>
-
-                                    <tr>
+                                </table>
+                            </div>
+                            <form action="/kasir/belanjaan/{{ $id }}/simpan" method="POST" id="simpanBlnj">
+                            {{ csrf_field() }}
+                            <table>
+                            <tr>
                                         <th colspan="5" style="text-align: right;">Tunai</th>
-                                        <td><input type="number" name="bayar" id="bayarBelanja" onkeyup="kembalianuBelanja()"></td>
+                                        <td><input type="number" name="bayar" id="bayarBelanja" onkeyup="kembalianuBelanja()" {{ ($statustrans=='Selesai') ? 'disabled' : '' }}></td>
                                     </tr>
                                     <tr>
                                         <th colspan="5" style="text-align: right;">Kembalian</th>
                                         <td>
                                             <input type="number" name="kembalian" id="kembalianBelanja" disabled>
-                                            <button type="submit" class="btn btn-primary" id="simpanBelanja"><i class="material-icons">save</i>Simpan</button>
+                                            <button type="submit" class="btn btn-primary" id="simpanBelanja" {{ ($statustrans=='Selesai') ? 'disabled' : '' }}><i class="material-icons">save</i>Simpan</button>
                                        
                                             <a class="btn btn-success"><i class="material-icons">local_printshop</i>Cetak Struk</a>
                                         </td>
-                                         
                                     </tr>
-                                     </form>
-                                </table>
-                            </div>
+                            </table>
+                            </form>
                         </div>
                     </div>
                 </div>

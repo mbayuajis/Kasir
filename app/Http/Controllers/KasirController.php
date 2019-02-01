@@ -100,14 +100,17 @@ class KasirController extends Controller
     {
         $cek = Kasir::where('no_transaksi', $id)->first();
         $cek2 = Kasir::where('no_transaksi', $id)->where('status', 'Selesai')->first();
+       
         if($cek == null)
             abort(404);
+
+        $cekstat = "";
         if($cek2 != null)
-            return redirect('kasir');
+            $cekstat = $cek2->status;
 
         $daftarBelanja = Belanjaan::select('kode_barang',DB::raw('COUNT(*) as qty'))->groupBy('kode_barang')->where('no_transaksi', $id)->with('detailBarang')->get();
 
-    	return view('kasir/belanjaan', ['id' => $id, 'daftarBelanjas' => $daftarBelanja]);
+    	return view('kasir/belanjaan', ['id' => $id, 'daftarBelanjas' => $daftarBelanja, 'statustrans' => $cekstat]);
     }
 
     public function refrsBelanjaan($id)
@@ -130,6 +133,10 @@ class KasirController extends Controller
         $cekBrng = Barang::where('id_barang', $request->kode_barang)->first();
         if($cekBrng == null)
             return response()->json(['sttus' => 'gagal']);
+
+        Barang::where('id_barang', $request->kode_barang)->update([
+            'stock' => $cekBrng->stock - 1,
+        ]);
 
         Belanjaan::create([
             'no_transaksi' => $id,
@@ -154,7 +161,21 @@ class KasirController extends Controller
     }
 
     public function penjualanHariini(){
-        
+        $barangHris = Belanjaan::join('transaksi', 'barang_transaksi.no_transaksi', '=', 'transaksi.no_transaksi')
+            ->join('barang', 'barang_transaksi.kode_barang', '=', 'barang.id_barang')
+            ->where('transaksi.no_transaksi', 'like', '%' . date('Y-m-d') . '%')
+            ->where('transaksi.status', 'Selesai')
+            ->select('transaksi.*', 'barang_transaksi.*', 'barang.*')
+            ->get();
+
+        $profitHri = 0;
+        $penjualanHri = 0;
+        foreach ($barangHris as $barangHri) {
+            $profitHri = $profitHri + ($barangHri->harga_jual - $barangHri->harga_beli);
+            $penjualanHri = $penjualanHri + $barangHri->harga_jual;
+        }
+
+        return response()->json(['profit' => $profitHri, 'penjualan' => $penjualanHri]);
     }
 
 }

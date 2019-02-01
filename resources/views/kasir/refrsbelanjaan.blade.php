@@ -30,26 +30,8 @@
                                         </tr>      
                                         @endforeach                                 
                                     </tbody>
-                                    <form action="/kasir/belanjaan/{{ $id }}/simpan" method="POST">
                                     <tr>
-                                            {{ csrf_field() }}
                                         <th colspan="5" style="text-align: right;">Total</th>
                                         <td><input type="text" value="{{ $total }}" name="total" id="totalBelanja" disabled></td>
                                     </tr>
-
-                                    <tr>
-                                        <th colspan="5" style="text-align: right;">Tunai</th>
-                                        <td><input type="number" name="bayar" id="bayarBelanja" onkeyup="kembalianuBelanja()"></td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="5" style="text-align: right;">Kembalian</th>
-                                        <td>
-                                            <input type="number" name="kembalian" id="kembalianBelanja" disabled>
-                                            <button type="submit" class="btn btn-primary" id="simpanBelanja"><i class="material-icons">save</i>Simpan</button>
-                                       
-                                            <a class="btn btn-success"><i class="material-icons">local_printshop</i>Cetak Struk</a>
-                                        </td>
-                                         
-                                    </tr>
-                                     </form>
                                 </table>
