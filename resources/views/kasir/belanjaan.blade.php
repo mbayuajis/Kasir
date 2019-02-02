@@ -90,7 +90,7 @@
                                             <input type="number" name="kembalian" id="kembalianBelanja" disabled>
                                             <button type="submit" class="btn btn-primary" id="simpanBelanja" {{ ($statustrans=='Selesai') ? 'disabled' : '' }}><i class="material-icons">save</i>Simpan</button>
                                        
-                                            <a class="btn btn-success"><i class="material-icons">local_printshop</i>Cetak Struk</a>
+                                            <a class="btn btn-success" target="blank" onclick="window.open('resources/views/kasir/struck.php','mywindow','width=600px, heigh=600px, left=300px')"><i class="material-icons">local_printshop</i>Cetak Struk</a>
                                         </td>
                                     </tr>
                             </table>
