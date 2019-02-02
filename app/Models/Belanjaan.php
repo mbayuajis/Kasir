@@ -12,12 +12,12 @@ class Belanjaan extends Model
 
     function detailBarang()
     {
-    	return $this->hasOne('App\Models\Barang', 'id_barang', 'kode_barang');
+    	return $this->belongsTo('App\Models\Barang', 'kode_barang', 'id_barang');
     }
 
     function detailTransaksi()
     {
-    	return $this->hasOne('App\Models\Kasir', 'no_transaksi', 'no_transaksi');
+    	return $this->belongsTo('App\Models\Kasir', 'no_transaksi', 'no_transaksi');
     }
 
 }

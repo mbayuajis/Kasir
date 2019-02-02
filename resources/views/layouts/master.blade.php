@@ -329,6 +329,8 @@
                     success: function(data){
                         if(data['sttus']=="gagal")
                             alert("Kode Barang Tidak Ada!");
+                        else if(data['sttus']=="habis")
+                            alert("Stock Habis!");
                         else{
                             $.ajax({
                             url : link + "/refrs",
