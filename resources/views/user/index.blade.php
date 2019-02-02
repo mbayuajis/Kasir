@@ -14,7 +14,7 @@
                         
                         <div class="body">
                             <div class="form-group">
-                                <a class="btn btn-primary" data-toggle="modal" data-target="#mybar3"><i class="material-icons">add_circle_outline</i>Tambah Data</a>        
+                                <a class="btn btn-primary" data-toggle="modal" data-target="#tambahuser"><i class="material-icons">add_circle_outline</i>Tambah Data</a>        
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
@@ -61,7 +61,7 @@
                             </div>
 
 <!-- Modal Tambah User -->
-<div class="modal fade" id="mybar3">
+<div class="modal fade" id="tambahuser">
 <div class="modal-dialog">
     <div class="modal-content">
 
@@ -114,12 +114,14 @@
                 @endif
             </div>
             </div>
-            {{-- <div class="form-group"> --}}
-                {{-- <div class="form-line"> --}}
-                <label for="jabatan">Jabatan</label>
-                <select name="jabatan" id="jabatan" {{-- class="form-control" --}}>
-                    <option value="Kasir">Kasir</option>
+
+            <div class="form-line">   
+                <label for="jabatan">Jabatan</label>            
+                <select name="jabatan" id="jabatan" class="form-control show-tick"> 
+                    <option value="">-- Pilih Jabatan --</option>
                     <option value="Owner">Owner</option>
+                    <option value="Kasir">Kasir</option>
+                    <option value="Owner">Admin</option>
                 </select>
                 @if ($errors->has('jabatan'))
                     @foreach ($errors->get('jabatan') as $message)
@@ -128,8 +130,10 @@
                         </div>
                     @endforeach
                 @endif
-            {{-- </div> --}}
-            </div>
+                </div>
+
+
+            <br>
             <div class="form-group">
                 <div class="form-line">
                 <label for="us">Username</label>
@@ -231,12 +235,14 @@
                 @endif
             </div>
             </div>
-            <div class="form-group">
+
                 <div class="form-line">
                 <label for="jabatanEdit">Jabatan</label>
-                <select class="form-control" name="jabatanE" id="jabatanEdit">
-                    <option value="Kasir">Kasir</option>
+                <select class="form-control" name="jabatanE" id="jabatanEdit show-tick">
+                    <option value="">-- Pilih Jabatan --</option>
                     <option value="Owner">Owner</option>
+                    <option value="Kasir">Kasir</option>
+                    <option value="Owner">Admin</option>
                 </select>
                 @if ($errors->has('jabatanE'))
                     @foreach ($errors->get('jabatanE') as $message)
@@ -246,7 +252,7 @@
                     @endforeach
                 @endif
             </div>
-            </div>
+
             <div class="form-group">
                 <div class="form-line">
                 <label for="us">Username</label>
