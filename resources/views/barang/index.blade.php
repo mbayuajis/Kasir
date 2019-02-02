@@ -91,6 +91,10 @@
                 @endif
             </div>
             </div>
+             <div class="row clearfix">
+            <div class="col-md-6">   
+                <label for="jabatan">Jabatan</label>            
+                <select name="jabatan" id="jabatan" class="form-control show-tick"> 
             <div class="input-group">
                 <div class="form-line">
                 <label for="stock">Stock</label>
