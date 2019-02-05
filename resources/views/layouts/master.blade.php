@@ -180,6 +180,11 @@
                 {{ Session::get('message') }}
             </div>
             @endif
+            @if (Session::get('wrong')!="")
+            <div id="flash-message" class="alert alert-danger" role="alert">
+                {{ Session::get('wrong') }}
+            </div>
+            @endif
             <div id="flash-message2" class="alert" role="alert">
                 <p id="message-flash"></p>
             </div>
@@ -203,11 +208,19 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="">
+        <form action="/ganti-password" method="POST">
+            {{ csrf_field() }}
             <div class="form-group">
                 <div class="form-line">
                 <label for="pass_lama">Password Lama</label>
-                <input type="password" name="pass_lama" placeholder="Masukkan Password Lama" class="form-control" id="pass_lama">            
+                <input type="password" name="pass_lama" placeholder="Masukkan Password Lama" class="form-control" id="pass_lama">
+                @if ($errors->has('pass_lama'))
+                    @foreach ($errors->get('pass_lama') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif    
             </div>
             </div>      
 
@@ -215,13 +228,27 @@
                 <div class="form-line">
                 <label for="pass_baru">Password Baru</label>
                 <input type="password" name="pass_baru" placeholder="Masukkan Password Baru" class="form-control" id="pass_baru" >
+                @if ($errors->has('pass_baru'))
+                    @foreach ($errors->get('pass_baru') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif
             </div>
             </div>
 
             <div class="form-group">
                 <div class="form-line">
                 <label for="pass_baru1">Ulangi Password Baru</label>
-                <input type="password" name="pass_baru1" placeholder="Ulangi Masukkan Password Baru" class="form-control" id="pass_baru1" >
+                <input type="password" name="pass_baru_confirmation" placeholder="Ulangi Masukkan Password Baru" class="form-control" id="pass_baru1" >
+                @if ($errors->has('pass_baru_confirmation'))
+                    @foreach ($errors->get('pass_baru_confirmation') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif
             </div>
             </div>            
                 <input type="submit" name="Simpan" value="Ganti" class="btn btn-success">
@@ -276,6 +303,11 @@
     @if ($errors->has('usernameE') || $errors->has('passwordE') || $errors->has('alamatE') || $errors->has('nama_pegawaiE'))
         <script>
             $('#mybar4').modal('show');
+        </script>
+    @endif
+    @if ($errors->has('pass_baru') || $errors->has('pass_lama') || $errors->has('pass_baru_confirmation'))
+        <script>
+            $('#changepwd').modal('show');
         </script>
     @endif
     <script type="text/javascript">
