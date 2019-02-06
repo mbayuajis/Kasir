@@ -11,10 +11,7 @@ class LoginController extends Controller
 {
     function login(Request $request)
     {
-		 // dd(Auth::login(['username' => 'qwerty']));
         if (Auth::guard('web')->attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
-            // Authentication passed...
-        	// dd(Auth::user());
             $currentUser = Auth::user();
             session(['user' => $currentUser]);
             return redirect()->intended('dashboard');

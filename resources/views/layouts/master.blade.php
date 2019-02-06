@@ -37,7 +37,7 @@
     {!! Html::style('assets/css/themes/all-themes.css') !!}
 </head>
 
-<body class="theme-red">
+<body class="theme-teal">
     <!-- Page Loader -->
     {{-- <div class="page-loader-wrapper">
         <div class="loader">
@@ -310,6 +310,11 @@
             $('#changepwd').modal('show');
         </script>
     @endif
+    @if ($errors->has('kode_barang') || $errors->has('nama_barang') || $errors->has('stock') || $errors->has('harga_beli') || $errors->has('harga_jual'))
+        <script>
+            $('#tambahBarang').modal('show');
+        </script>
+    @endif
     <script type="text/javascript">
         $(document).ready(function(){
             $(".editUser").click(function(){
@@ -338,6 +343,7 @@
                     success: function(data){
                         $('#mybar2').modal('show');
                         $('#formEdit').attr('action', '/barang/' + data.id_barang);
+                        $('#kode_barangE').val(data.id_barang);
                         $("#nama_barangE").val(data.nama_barang);
                         $("#stockN").text(data.stock + ' + ');
                         $("#harga_beliE").val(data.harga_beli);
@@ -370,6 +376,8 @@
                                 $(".belanjaandaftar").html(data);
                             }
                             });
+                            $("#kode_barangI").val('');
+                            $("#kode_barangI").focus();
                         }
                     }
                 });
@@ -386,6 +394,8 @@
 
 
             $("#simpanBelanja").prop('disabled', true);
+
+
 
         });
 

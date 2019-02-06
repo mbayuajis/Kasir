@@ -39,12 +39,8 @@ class BarangController extends Controller
     public function store(StoreBarang $request)
     {
     	$validated = $request->validated();
-        Barang::create([
-        	'nama_barang' => $request->nama_barang,
-        	'stock' => $request->stock,
-        	'harga_beli' => $request->harga_beli,
-        	'harga_jual' => $request->harga_jual,
-        ]);
+
+        Barang::storeBarang($request);
 
         return redirect('/barang')->with('message', 'Berhasil menambahkan Barang!');
     }
@@ -68,7 +64,7 @@ class BarangController extends Controller
      */
     public function edit($id)
     {
-        $barang = Barang::where('id_barang', $id)->firstOrFail();
+        $barang = Barang::editBarang($id);
         // dd($barang);
         return response()->json($barang);
     }
@@ -82,16 +78,12 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-    	$cekbarang = Barang::where('id_barang', $id)->first();
+    	$barang = Barang::updateBarang($request, $id);
 
-        Barang::where('id_barang', $id)->update([
-        	'nama_barang' => $request->nama_barangE,
-        	'stock' => $cekbarang->stock + $request->stockE,
-        	'harga_beli' => $request->harga_beliE,
-        	'harga_jual' => $request->harga_jualE
-        ]);
-
-        return redirect('barang')->with('message', 'Berhasil mengubah barang ' . $id);
+        if ($barang == 1)
+            return redirect('barang')->with('message', 'Berhasil mengubah barang ' . $id);
+        else
+            return redirect('barang');
     }
 
     /**
@@ -102,7 +94,7 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {
-        Barang::where('id_barang', $id)->delete();
+        Barang::destroyBarang($id);
         return redirect('barang')->with('message', 'Berhasil menghapus barang '.$id);
     }
 }

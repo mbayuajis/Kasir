@@ -24,6 +24,7 @@ class StoreBarang extends FormRequest
     public function rules()
     {
         return [
+            'kode_barang' => 'required',
             'nama_barang' => 'required',
             'stock' => 'required|numeric',
             'harga_beli' => 'required|numeric',

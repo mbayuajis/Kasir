@@ -102,6 +102,8 @@ class UserController extends Controller
         $rules = [
             'nama_pegawaiE' => 'required',
             'alamatE' => 'required',
+            'no_telpE' => 'required',
+            'jabatanE' => 'required',
             'usernameE' => [
                 'min:5',
                 'required',
@@ -119,13 +121,15 @@ class UserController extends Controller
             'nama_pegawai' => $request->nama_pegawaiE,
             'alamat' => $request->alamatE,
             'username' => $request->usernameE,
+            'no_telp' => $request->no_telpE,
+            'jabatan' => $request->jabatanE, 
             // 'password' => $request->passwordE,
         ]);
 
-        if(!empty($request->file('fotoE'))){  
+        if (!empty($request->file('fotoE'))) {  
             Storage::disk('public')->delete('avatars/'.$user->nama_pegawai.'.png');
             $request->file('fotoE')->storeAs('avatars', $request->nama_pegawaiE.'.png', 'public');   
-        }else{
+        }else if ($request->nama_pegawaiE != $user->nama_pegawai) {
             Storage::disk('public')->move('avatars/'.$user->nama_pegawai.'.png', 'avatars/'.$request->nama_pegawaiE.'.png');
         }
 
