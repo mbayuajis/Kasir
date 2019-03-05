@@ -154,6 +154,8 @@ return [
         'nama_pegawaiE' => 'Nama Pegawai',
         'alamatE' => 'Alamat',
         'passwordE' => 'Password',
+        'pass_baru' => 'Password Baru',
+        'pass_lama' => 'Password Lama',
     ],
 
 ];

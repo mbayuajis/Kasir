@@ -10,7 +10,6 @@
                                 <b>DATA USER</b>
                             </h1>
                         </div>
-                        <script src="jquery-3.1.1.min.js"></script>
                         
                         <div class="body">
                             <div class="form-group">
@@ -235,14 +234,13 @@
                 @endif
             </div>
             </div>
-
+            <div class="form-group">
                 <div class="form-line">
                 <label for="jabatanEdit">Jabatan</label>
-                <select class="form-control" name="jabatanE" id="jabatanEdit show-tick">
-                    <option value="">-- Pilih Jabatan --</option>
+                <select class="form-control show-tick" tabindex="-98" name="jabatanE" id="jabatanEdit" title="-- Pilih Jabatan --">
                     <option value="Owner">Owner</option>
                     <option value="Kasir">Kasir</option>
-                    <option value="Owner">Admin</option>
+                    <option value="Admin">Admin</option>
                 </select>
                 @if ($errors->has('jabatanE'))
                     @foreach ($errors->get('jabatanE') as $message)
@@ -252,7 +250,7 @@
                     @endforeach
                 @endif
             </div>
-
+            </div>
             <div class="form-group">
                 <div class="form-line">
                 <label for="us">Username</label>
@@ -282,7 +280,7 @@
             <div class="form-group">
                 <div class="form-line">
                 <label for="foto">Foto</label>
-                <input type="file" name="fotoE" class="form-control" id="fotoEdit" value="">
+                <input type="file" name="fotoE" class="form-control dropzone dz-clickable" id="fotoEdit" value="">
                 @if ($errors->has('fotoE'))
                     @foreach ($errors->get('fotoE') as $message)
                         <div class="alert alert-danger">

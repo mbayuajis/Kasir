@@ -14,7 +14,7 @@
                         
                         <div class="body">
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mybar"><i class="material-icons" >add_circle_outline</i>Tambah Data</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahBarang"><i class="material-icons" >add_circle_outline</i>Tambah Data</button>
                                 <a href="page/barang/cetakb.php" target="blank" class="btn btn-primary"><i class="material-icons">local_printshop</i>Cetak</a>
                             </div>
                             <div class="table-responsive">
@@ -58,7 +58,7 @@
                 </div>
             </div>
 <!-- Modal Tambah Barang -->
-<div class="modal fade" id="mybar" tabindex="-1" role="dialog">
+<div class="modal fade" id="tambahBarang" tabindex="-1" role="dialog">
 <div class="modal-dialog">
     <div class="modal-content">
 
@@ -72,12 +72,19 @@
       <div class="modal-body">
         <form action="/barang" method="POST">
             {{ csrf_field() }}            
-            {{-- <div class="input-group">
+            <div class="input-group">
                 <div class="form-line">
-                <label for="kode">Barcode</label>
-                <input type="text" name="idbarang" placeholder="Masukkan Barcode" class="form-line" id="kode">
-            </div> --}}
-            {{-- </div> --}}
+                <label for="kodbar">Kode Barang</label>
+                <input type="text" name="kode_barang" placeholder="Masukkan Kode Barang" class="form-line form-control" id="kodbar" value="{{ old('kode_barang') }}">
+                @if ($errors->has('kode_barang'))
+                    @foreach ($errors->get('kode_barang') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            </div>
             <div class="input-group">
                 <div class="form-line">
                 <label for="nama">Nama Barang</label>
@@ -91,10 +98,6 @@
                 @endif
             </div>
             </div>
-             <div class="row clearfix">
-            <div class="col-md-6">   
-                <label for="jabatan">Jabatan</label>            
-                <select name="jabatan" id="jabatan" class="form-control show-tick"> 
             <div class="input-group">
                 <div class="form-line">
                 <label for="stock">Stock</label>
@@ -158,12 +161,12 @@
       <div class="modal-body">
         <form action="" id="formEdit" method="POST" class="col">            
             {{ csrf_field() }}
-               {{-- <div class="input-group">
+            <div class="input-group">
                 <div class="form-line">
-                <label for="kode">Barcode</label>
-                <input type="text" name="idbarang" placeholder="Masukkan Barcode" class="form-line" id="kode">
+                <label for="kodbarE">Kode Barang</label>
+                <input type="text" name="kode_barangE" placeholder="Masukkan Kode Barang" class="form-line form-control" id="kode_barangE">
             </div>
-            </div> --}}
+            </div>
             <div class="input-group">
                 <div class="form-line">
                 <label for="nama">Nama Barang</label>

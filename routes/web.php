@@ -15,6 +15,9 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::get('/dashboard', 'HomeController@index');
     Route::get('/', 'HomeController@index');
 	Route::get('/logout', 'LoginController@logout');
+
+	Route::post('/ganti-password', 'LoginController@gantpass');
+
 	Route::resource('user', 'UserController')->only([
 	    'index', 'show', 'store', 'update', 'destroy'
 	]);

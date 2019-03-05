@@ -12,7 +12,7 @@
             <form id="formBelanja" linkTambah="/kasir/belanjaan/{{ $id }}" notrans="{{ $id }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-line col-md-3">
-                    <input type="text" name="kode_barang" class="form-control" placeholder="Kode Barang" id="kode_barangI" {{ ($statustrans=='Selesai') ? 'disabled' : '' }} />
+                    <input type="text" name="kode_barang" autofocus="true" class="form-control" placeholder="Kode Barang" id="kode_barangI" {{ ($statustrans=='Selesai') ? 'disabled' : '' }} />
                 </div>  
 
                 <div class="form-line">

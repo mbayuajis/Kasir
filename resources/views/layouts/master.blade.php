@@ -37,7 +37,7 @@
     {!! Html::style('assets/css/themes/all-themes.css') !!}
 </head>
 
-<body class="theme-red">
+<body class="theme-teal">
     <!-- Page Loader -->
     {{-- <div class="page-loader-wrapper">
         <div class="loader">
@@ -180,6 +180,11 @@
                 {{ Session::get('message') }}
             </div>
             @endif
+            @if (Session::get('wrong')!="")
+            <div id="flash-message" class="alert alert-danger" role="alert">
+                {{ Session::get('wrong') }}
+            </div>
+            @endif
             <div id="flash-message2" class="alert" role="alert">
                 <p id="message-flash"></p>
             </div>
@@ -203,11 +208,19 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="">
+        <form action="/ganti-password" method="POST">
+            {{ csrf_field() }}
             <div class="form-group">
                 <div class="form-line">
                 <label for="pass_lama">Password Lama</label>
-                <input type="password" name="pass_lama" placeholder="Masukkan Password Lama" class="form-control" id="pass_lama">            
+                <input type="password" name="pass_lama" placeholder="Masukkan Password Lama" class="form-control" id="pass_lama">
+                @if ($errors->has('pass_lama'))
+                    @foreach ($errors->get('pass_lama') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif    
             </div>
             </div>      
 
@@ -215,13 +228,27 @@
                 <div class="form-line">
                 <label for="pass_baru">Password Baru</label>
                 <input type="password" name="pass_baru" placeholder="Masukkan Password Baru" class="form-control" id="pass_baru" >
+                @if ($errors->has('pass_baru'))
+                    @foreach ($errors->get('pass_baru') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif
             </div>
             </div>
 
             <div class="form-group">
                 <div class="form-line">
                 <label for="pass_baru1">Ulangi Password Baru</label>
-                <input type="password" name="pass_baru1" placeholder="Ulangi Masukkan Password Baru" class="form-control" id="pass_baru1" >
+                <input type="password" name="pass_baru_confirmation" placeholder="Ulangi Masukkan Password Baru" class="form-control" id="pass_baru1" >
+                @if ($errors->has('pass_baru_confirmation'))
+                    @foreach ($errors->get('pass_baru_confirmation') as $message)
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
+                    @endforeach
+                @endif
             </div>
             </div>            
                 <input type="submit" name="Simpan" value="Ganti" class="btn btn-success">
@@ -278,6 +305,16 @@
             $('#mybar4').modal('show');
         </script>
     @endif
+    @if ($errors->has('pass_baru') || $errors->has('pass_lama') || $errors->has('pass_baru_confirmation'))
+        <script>
+            $('#changepwd').modal('show');
+        </script>
+    @endif
+    @if ($errors->has('kode_barang') || $errors->has('nama_barang') || $errors->has('stock') || $errors->has('harga_beli') || $errors->has('harga_jual'))
+        <script>
+            $('#tambahBarang').modal('show');
+        </script>
+    @endif
     <script type="text/javascript">
         $(document).ready(function(){
             $(".editUser").click(function(){
@@ -306,6 +343,7 @@
                     success: function(data){
                         $('#mybar2').modal('show');
                         $('#formEdit').attr('action', '/barang/' + data.id_barang);
+                        $('#kode_barangE').val(data.id_barang);
                         $("#nama_barangE").val(data.nama_barang);
                         $("#stockN").text(data.stock + ' + ');
                         $("#harga_beliE").val(data.harga_beli);
@@ -338,6 +376,8 @@
                                 $(".belanjaandaftar").html(data);
                             }
                             });
+                            $("#kode_barangI").val('');
+                            $("#kode_barangI").focus();
                         }
                     }
                 });
@@ -354,6 +394,8 @@
 
 
             $("#simpanBelanja").prop('disabled', true);
+
+
 
         });
 
