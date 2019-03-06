@@ -1,5 +1,5 @@
-<h4 align="center">PRARARAMA SPORT</h4>
-<h5 align="center">Jl. Andonohu No. 32B Kota Kendari Sulawesi Tenggara</h5>
+<h4 align="center">MITRA PRATAMA SPORT</h4>
+<h5 align="center">Jl. Jend. AH. Nasution, Kambu, Kota Kendari, Sulawesi Tenggara</h5>
 
 <table>
 	<tr>
@@ -39,3 +39,6 @@
 		<td>0</td>
 	</tr>
 </table>
+
+<h5 align="center">Terima Kasih</h5>
+<h5 align="center">Atas Kunjungan Anda</h5>
