@@ -10,8 +10,8 @@
 <table border="1" width="100%" style="border-collapse: collapse;">
 	<caption>
 		<h3><b>Laporan Data Barang</b></h3>
-		<h2><b>PRARARAMA SPORT</b></h2>
-		<h4>Jl. Andonohu No. 32B Kota Kendari Sulawesi Tenggara</h4>
+		<h2><b>MITRA PRATAMA SPORT</b></h2>
+		<h4>Jl. Jend. AH. Nasution, Kambu, Kota Kendari, Sulawesi Tenggara</h4>
 	</caption>
 	<thead>
 		<tr>
