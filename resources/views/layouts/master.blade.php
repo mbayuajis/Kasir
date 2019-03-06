@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Kasir Prararama Sport</title>
+    <title>Kasir Mitra Pratama Sport</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon-->
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
@@ -75,7 +75,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.php"><b>PRARARAMA SPORT</b></a>
+                <a class="navbar-brand" href="index.php"><b>MITRA PRATAMA SPORT</b></a>
             </div>
         </div>
     </nav>
@@ -146,7 +146,7 @@
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    &copy; 2019<a href="javascript:void(0);"> Prararama Sport</a>.
+                    &copy; 2019<a href="javascript:void(0);"> Mitra Pratama Sport</a>.
                 </div>
             </div>
             <!-- #Footer -->
