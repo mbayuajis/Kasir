@@ -35,8 +35,8 @@
 <body class="login-page">
     <div class="login-box">
         <div class="logo">
-            <a href="javascript:void(0);"><b>Prararama Sport</b></a>
-            <small>Jl. Andonohu No. 32B Kota Kendari Sulawesi Tenggara</small>
+            <a href="javascript:void(0);"><b>Mitra Pratama Sport</b></a>
+            <small>Jl. Jend. AH. Nasution, Kambu, Kota Kendari, Sulawesi Tenggara</small>
         </div>
         @if (Session::get('message')!="")
             <div class="alert alert-danger" role="alert">
