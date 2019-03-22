@@ -15,7 +15,6 @@
                         <div class="body">
                             <div class="form-group">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahBarang"><i class="material-icons" >add_circle_outline</i>Tambah Data</button>
-                                <a href="page/barang/cetakb.php" target="blank" class="btn btn-primary"><i class="material-icons">local_printshop</i>Cetak</a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
