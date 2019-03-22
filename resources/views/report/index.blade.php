@@ -14,7 +14,6 @@
                         
                         <div class="body">
                             <div class="form-group">
-                                <a href="page/report/cetakr.php" target="blank" class="btn btn-primary"><i class="material-icons">local_printshop</i>Cetak</a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
